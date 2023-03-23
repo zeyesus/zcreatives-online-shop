@@ -1,0 +1,6 @@
+.footer-link {
+  @apply border-yellow border-b-2;
+}
+.footer-link-hover {
+  @apply hover:-skew-y-2 hover:scale-105;
+}
