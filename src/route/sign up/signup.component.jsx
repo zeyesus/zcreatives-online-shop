@@ -18,7 +18,7 @@ const SignUp = () => {
     <div>
       {/* <Form /> */}
       <button className="btn btn-hover" onClick={logGoogleUser}>
-        Sign up with Google
+        Sign up with google
       </button>
     </div>
   );
