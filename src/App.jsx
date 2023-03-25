@@ -6,7 +6,7 @@ import OrderRoute from "./route/order/order.route.component";
 import DesignRoute from "./route/design/design.route.component";
 import CartRoute from "./route/cart/cart.route.component";
 import SignIN from "./route/signin/signin.route.component";
-import SignUp from "./route/sign up/signup.component";
+import SignUp from "./route/sign up/signup.route.component";
 function App() {
   return (
     <div className="App container mx-auto">

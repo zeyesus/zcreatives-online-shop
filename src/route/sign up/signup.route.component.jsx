@@ -1,6 +1,7 @@
 import { async } from "@firebase/util";
 import React, { StrictMode } from "react";
-import Form from "../../component/form/form";
+
+import SignUpForm from "../../component/form/signupform.component";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
@@ -15,9 +16,13 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      {/* <Form /> */}
-      <button className="btn btn-hover" onClick={logGoogleUser}>
+    <div className=" max-w-xs p-4 py-8 bg-lightDark mx-auto mt-20 shadow-lg">
+      <SignUpForm />
+
+      <button
+        className="btn-outline-large btn-hover ml-5 mt-3 flex"
+        onClick={logGoogleUser}
+      >
         Sign up with google
       </button>
     </div>
