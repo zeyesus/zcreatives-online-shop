@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from "react";
-import girl from "../../assets/girlwithbgshape.png";
+import React, { Fragment, useContext, useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import girl from "../../assets/girlwithbgshape.png";
 import FormInput from "./formInput.component";
+import { UserContext } from "../context/user.context";
+
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -12,6 +14,8 @@ const defaultFormFields = {
   confirmpassword: "",
 };
 const SignUpForm = () => {
+  const { setcurrentuser } = useContext(UserContext); ////context////
+
   const [formFields, setformFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmpassword } = formFields;
 
@@ -36,6 +40,8 @@ const SignUpForm = () => {
         email,
         password
       );
+      //////////Context for email and password login///////////////
+      setcurrentuser(user);
       ///////////////LOG////////////
       console.log(user);
 

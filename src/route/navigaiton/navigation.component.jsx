@@ -1,7 +1,17 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { UserContext } from "../../component/context/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 const Navbar = () => {
+  const { currentuser, setcurrentuser } = useContext(UserContext);
+  console.log(currentuser); ///log current user///
+  const handleLogOut = async () => {
+    await signOutUser();
+    setcurrentuser(null);
+    console.log(currentuser);
+    console.log("successfuly loged out");
+  };
   return (
     <Fragment>
       <nav className="relative bg-primaryDark mx-auto p-2 text-white">
@@ -18,16 +28,27 @@ const Navbar = () => {
             </div>
           </div>
           <div className="space-x-4">
-            <Link to="/signin">
-              <button className="hidden md:inline-block  btn  btn_hover">
-                Sign in
-              </button>
-            </Link>
-            <Link to="/signup">
-              <button className="hidden md:inline-block  btn btn_hover">
-                Sign up
-              </button>
-            </Link>
+            {currentuser ? (
+              <span
+                className="hidden md:inline-block  btn  btn_hover"
+                onClick={handleLogOut}
+              >
+                Sign Out
+              </span>
+            ) : (
+              <Fragment>
+                <Link to="/signin">
+                  <button className="hidden md:inline-block  btn  btn_hover">
+                    Sign in
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button className="hidden md:inline-block  btn btn_hover">
+                    Sign up
+                  </button>
+                </Link>
+              </Fragment>
+            )}
           </div>
         </div>
       </nav>
