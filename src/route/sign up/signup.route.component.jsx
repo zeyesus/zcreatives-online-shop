@@ -9,10 +9,10 @@ import {
 
 const SignUp = () => {
   const logGoogleUser = async () => {
-    const response = await signInWithGooglePopup();
+    await signInWithGooglePopup();
     //console.log(response);
-    const { user } = response;
-    const userDocRef = await createUserDocumentFromAuth(user);
+    // const { user } = response;
+    // const userDocRef = await createUserDocumentFromAuth(user);
   };
 
   return (

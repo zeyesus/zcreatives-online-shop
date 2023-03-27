@@ -4,14 +4,15 @@ import { Outlet } from "react-router-dom";
 import { UserContext } from "../../component/context/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 const Navbar = () => {
-  const { currentuser, setcurrentuser } = useContext(UserContext);
+  const { currentuser } = useContext(UserContext);
   console.log(currentuser); ///log current user///
+
   const handleLogOut = async () => {
     await signOutUser();
-    setcurrentuser(null);
-    console.log(currentuser);
+    // console.log(currentuser);
     console.log("successfuly loged out");
   };
+
   return (
     <Fragment>
       <nav className="relative bg-primaryDark mx-auto p-2 text-white">

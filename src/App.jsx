@@ -9,7 +9,7 @@ import SignIN from "./route/signin/signin.route.component";
 import SignUp from "./route/sign up/signup.route.component";
 function App() {
   return (
-    <div className="App container mx-auto">
+    <div className="App container mx-auto bg-lightDark ">
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route index element={<HomeRoute />} />

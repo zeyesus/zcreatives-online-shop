@@ -5,7 +5,6 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import girl from "../../assets/girlwithbgshape.png";
 import FormInput from "./formInput.component";
-import { UserContext } from "../context/user.context";
 
 const defaultFormFields = {
   displayName: "",
@@ -14,7 +13,7 @@ const defaultFormFields = {
   confirmpassword: "",
 };
 const SignUpForm = () => {
-  const { setcurrentuser } = useContext(UserContext); ////context////
+  // const { setcurrentuser } = useContext(UserContext); ////context////
 
   const [formFields, setformFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmpassword } = formFields;
@@ -41,7 +40,7 @@ const SignUpForm = () => {
         password
       );
       //////////Context for email and password login///////////////
-      setcurrentuser(user);
+      // setcurrentuser(user);
       ///////////////LOG////////////
       console.log(user);
 
