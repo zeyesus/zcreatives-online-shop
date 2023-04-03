@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import CartItem from "../cart-item/cart-item.component";
 import { CartContext } from "../context/cart.context";
-
+import { Link } from "react-router-dom";
 const CartDropDown = () => {
   const { cartItems } = useContext(CartContext);
 
@@ -12,7 +12,9 @@ const CartDropDown = () => {
           <CartItem key={item.id} cartItem={item} />
         ))}
       </div>
-      <button className="btn-large btn-larg-hover">Check out</button>
+      <Link to={"/cart"} className="btn-large btn-larg-hover text-center">
+        Check out
+      </Link>
     </div>
   );
 };
