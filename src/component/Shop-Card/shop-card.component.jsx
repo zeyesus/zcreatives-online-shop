@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CartContext } from "../context/cart.context";
 
 const ShopCard = ({ product }) => {
-  const { name, imageUrl, price } = product;
+  const { productName, price, catagory, description, productImage } = product;
   const { addItemToCart } = useContext(CartContext);
 
   const addProductToCart = () => {
@@ -10,10 +10,12 @@ const ShopCard = ({ product }) => {
   };
   return (
     <div className="h-72 flex flex-col hover:scale-95  transition-all gap-y-1 shadow-xl bg-white rounded-lg overflow-clip ">
-      <img src={imageUrl} className="object-cover overflow-hidden " />
+      <img src={productImage} className="object-cover overflow-hidden " />
 
-      <span>{name}</span>
+      <span>{productName}</span>
       <span>{price}</span>
+      <span>{catagory}</span>
+      <span>{description}</span>
       <button
         className="btn-large btn-outline-hover"
         onClick={addProductToCart}

@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { CartContext } from "../context/cart.context";
 
 const CheckOutItem = ({ cartItem }) => {
-  const { id, name, imageurl, price, quantity } = cartItem;
+  const { id, productName, productImage, price, quantity } = cartItem;
   const { removeItemToCart, addItemToCart, clearItemFromCart } =
     useContext(CartContext);
 
@@ -12,8 +12,8 @@ const CheckOutItem = ({ cartItem }) => {
   return (
     <Fragment>
       <div key={id} className="flex justify-between p-2 w-5/6  font-semibold">
-        <img src={imageurl} className="w-20" />
-        <h2>{name}</h2>
+        <img src={productImage} className="w-20" />
+        <h2>{productName}</h2>
         <span className="flex gap-2">
           <div onClick={removeItemHandler}>"-"</div>
           {quantity}

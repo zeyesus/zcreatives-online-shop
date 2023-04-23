@@ -9,7 +9,23 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { useState } from "react";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB_2nuRs97aAv3IWbTnsp3spJwi5auJxXM",
@@ -31,6 +47,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 //////////creating db collection///////
 
 export const db = getFirestore();
+export const storage = getStorage();
 
 export const createUserDocumentFromAuth = async (
   userAuth,
@@ -80,3 +97,30 @@ export const signOutUser = async () => {
 };
 export const onAuthStateChangeListiner = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const addProductItem = async (data) => {
+  try {
+    const res = await addDoc(collection(db, "products"), {
+      ...data,
+      timestamp: serverTimestamp(),
+    });
+    console.log("successfuly insertede");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//////////////////////...reading products...////////////////////////
+export const GetProducts = async () => {
+  let products = [];
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    querySnapshot.forEach((doc) => {
+      products.push({ id: doc.id, ...doc.data() });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(products);
+  return products;
+};
