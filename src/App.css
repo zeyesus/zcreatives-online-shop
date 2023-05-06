@@ -15,7 +15,9 @@
 .btn {
   @apply px-4 py-1 rounded-lg bg-yellow  text-primaryDark;
 }
-
+.btn-small {
+  @apply px-4 py-1 text-lg rounded-lg bg-yellow text-white;
+}
 .btn-large {
   @apply px-8 py-2 text-xl rounded-lg bg-yellow text-white;
 }
