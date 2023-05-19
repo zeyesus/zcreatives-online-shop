@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./footer.component.css";
+import { zcreativeslogo } from "../../assets";
 const Footer = () => {
   return (
     <section className="bg-primaryDark text-white ">
       <div className="h-60 flex flex-col md:flex-row md:justify-around md:items-center">
         <div className="">
-          <h1>logo</h1>
+          <img src={zcreativeslogo} className="h-10 -ml-2" />
           <div className=" flex  space-x-3 mt-5">
             <Link to="/" className="footer-link footer-link-hover">
               Home

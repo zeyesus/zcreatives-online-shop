@@ -1,5 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  MdHighQuality,
+  MdDesignServices,
+  MdVerifiedUser,
+} from "react-icons/md";
 const Services = () => {
   return (
     <div>
@@ -8,37 +13,31 @@ const Services = () => {
         <h1 className="flex justify-center font-semibold text-3xl text-yellow">
           Services We Provide
         </h1>
-        <div className="md:flex gap-10 md:justify-between md:max-w-6xl md:flex-1 mx-auto mt-12 ">
-          <div className="card  cardhover">
-            <div>
-              <div>imgw</div>
-            </div>
-            <div className="mt-4">
-              <h2 className="heading2 mb-3">Quality print</h2>
-              <p className="text-secondaryDark">
-                With our latest machines we provide you a high quality print
-              </p>
-            </div>
+        <div className="md:flex lg:gap-10 gap-5 md:justify-between md:max-w-6xl md:flex-1 mx-auto mt-12 ">
+          <div className="card  cardhover ">
+            <MdHighQuality className="text-6xl text-brightYellow" />
+
+            <h2 className="heading2 mt-3">Quality print</h2>
+            <p className="text-secondaryDark">
+              With our latest machines we provide you a high quality print
+            </p>
           </div>
-          <div className="card  cardhover">
-            <div>
-              <div>img</div>
-            </div>
-            <div className="mt-4">
-              <h2 className="heading2 mb-3">Qualty print</h2>
-              <p className="text-secondaryDark">
-                With our latest machines we provide you a high quality print
-              </p>
-            </div>
+
+          <div className="card  cardhover ">
+            <MdDesignServices className="text-6xl text-brightYellow" />
+
+            <h2 className="heading2 mt-3">Powerfull Design </h2>
+            <p className="text-secondaryDark">
+              With our latest machines we provide you a high quality print
+            </p>
           </div>
           <div className="card  cardhover ">
-            <div>img</div>
-            <div className="mt-4">
-              <h2 className="heading2 mb-3">Quality print</h2>
-              <p className="text-secondaryDark">
-                With our latest machines we provide you a high quality print
-              </p>
-            </div>
+            <MdVerifiedUser className="text-6xl text-brightYellow" />
+
+            <h2 className="heading2 mt-3">Trusted by 1k users</h2>
+            <p className="text-secondaryDark">
+              With our latest machines we provide you a high quality print
+            </p>
           </div>
         </div>
         <div className="flex justify-center mt-16">

@@ -16,15 +16,15 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" max-w-xs p-4 py-8 bg-lightDark mx-auto mt-20 shadow-lg">
+    <div className=" max-w-3xl p-4 py-8 bg-lightDark mx-auto mt-20 shadow-lg">
       <SignUpForm />
 
-      <button
+      {/* <button
         className="btn-outline-large btn-hover ml-5 mt-3 flex"
         onClick={logGoogleUser}
       >
         Sign up with google
-      </button>
+      </button> */}
     </div>
   );
 };

@@ -5,5 +5,15 @@ import download from "./download.png";
 
 import logoShirt from "./logo-tshirt.png";
 import stylishShirt from "./stylish-tshirt.png";
-
-export { ai, fileIcon, swatch, download, logoShirt, stylishShirt };
+import GirlWithBgShape from "./girlWithBgShape.png";
+import zcreativeslogo from "./zcreatives.png";
+export {
+  ai,
+  fileIcon,
+  swatch,
+  download,
+  logoShirt,
+  stylishShirt,
+  GirlWithBgShape,
+  zcreativeslogo,
+};

@@ -107,7 +107,7 @@ const AddProductForm = () => {
     <Fragment>
       <form
         onSubmit={handleSubmit}
-        className="max-w-xl shadow-lg p-6 mx-auto  rounded-lg  mt-5"
+        className="max-w-lg mb-8 shadow-lg p-6 mx-auto  rounded-lg  mt-5"
       >
         <h2 className="text-2xl uppercase text-center">add product</h2>
         <FormInput
@@ -140,7 +140,7 @@ const AddProductForm = () => {
           required
           className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
         />
-        <div className="flex items-center gap-x-16 ">
+        <div className="flex items-center justify-between ">
           <FormInput
             label="Price"
             name="price"

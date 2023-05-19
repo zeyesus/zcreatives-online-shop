@@ -11,7 +11,7 @@ const CheckOutItem = ({ cartItem }) => {
   const clearItemHandler = () => clearItemFromCart(cartItem);
   return (
     <Fragment>
-      <div key={id} className="flex justify-between p-2 w-5/6  font-semibold">
+      {/* <div key={id} className="flex justify-between p-2 w-5/6  font-semibold">
         <img src={productImage} className="w-20" />
         <h2>{productName}</h2>
         <span className="flex gap-2">
@@ -22,7 +22,27 @@ const CheckOutItem = ({ cartItem }) => {
         <span>{price * quantity}</span>
 
         <span onClick={clearItemHandler}>Remove</span>
-      </div>
+      </div> */}
+      <tbody>
+        <tr>
+          <td>
+            <img src={productImage} className="w-20" />
+          </td>
+          <td>{productName}</td>
+          <td>
+            <span className="flex gap-2">
+              <div onClick={removeItemHandler}>"-"</div>
+              {quantity}
+              <span onClick={addItemHandler}>"+"</span>
+            </span>
+          </td>
+          <td>{price * quantity}</td>
+          <td>
+            {" "}
+            <span onClick={clearItemHandler}>Remove</span>
+          </td>
+        </tr>
+      </tbody>
     </Fragment>
   );
 };

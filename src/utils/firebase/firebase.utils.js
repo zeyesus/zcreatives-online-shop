@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -18,6 +17,7 @@ import {
   addDoc,
   collection,
   serverTimestamp,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -98,6 +98,7 @@ export const signOutUser = async () => {
 export const onAuthStateChangeListiner = (callback) =>
   onAuthStateChanged(auth, callback);
 
+//////////// ADD PRODUCT TO DB ///////////////
 export const addProductItem = async (data) => {
   try {
     const res = await addDoc(collection(db, "products"), {
@@ -111,10 +112,10 @@ export const addProductItem = async (data) => {
 };
 
 //////////////////////...reading products...////////////////////////
-export const GetProducts = async () => {
+export const GetItems = async (collectionName) => {
   let products = [];
   try {
-    const querySnapshot = await getDocs(collection(db, "products"));
+    const querySnapshot = await getDocs(collection(db, collectionName));
     querySnapshot.forEach((doc) => {
       products.push({ id: doc.id, ...doc.data() });
     });
@@ -123,4 +124,23 @@ export const GetProducts = async () => {
   }
   console.log(products);
   return products;
+};
+
+//////// DELETE items from fire store ///////////
+
+export const DeletItem = async (itemId, collectionName) => {
+  try {
+    await deleteDoc(doc(db, collectionName, itemId));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//////////// UPDATE DOCUEMENT //////////
+export const UpdateItem = async (itemId, collectionName, updatedata) => {
+  try {
+    await setDoc(doc(db, collectionName, itemId), updatedata);
+  } catch (error) {
+    console.log(error);
+  }
 };

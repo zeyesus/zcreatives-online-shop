@@ -12,7 +12,7 @@ const DesignSection = () => {
             Have in mind
           </h1>
           <div className="mt-16">
-            <Link to="/signin" className="btn-large btn_hover ">
+            <Link to="/design" className="btn-large btn_hover ">
               Design Now
             </Link>
           </div>
