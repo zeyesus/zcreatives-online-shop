@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import { CartContext } from "../context/cart.context";
-
+import { GrFormAdd } from "react-icons/gr";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 const CheckOutItem = ({ cartItem }) => {
   const { id, productName, productImage, price, quantity } = cartItem;
   const { removeItemToCart, addItemToCart, clearItemFromCart } =
@@ -11,18 +12,6 @@ const CheckOutItem = ({ cartItem }) => {
   const clearItemHandler = () => clearItemFromCart(cartItem);
   return (
     <Fragment>
-      {/* <div key={id} className="flex justify-between p-2 w-5/6  font-semibold">
-        <img src={productImage} className="w-20" />
-        <h2>{productName}</h2>
-        <span className="flex gap-2">
-          <div onClick={removeItemHandler}>"-"</div>
-          {quantity}
-          <span onClick={addItemHandler}>"+"</span>
-        </span>
-        <span>{price * quantity}</span>
-
-        <span onClick={clearItemHandler}>Remove</span>
-      </div> */}
       <tbody>
         <tr>
           <td>
@@ -30,11 +19,22 @@ const CheckOutItem = ({ cartItem }) => {
           </td>
           <td>{productName}</td>
           <td>
-            <span className="flex gap-2">
-              <div onClick={removeItemHandler}>"-"</div>
-              {quantity}
-              <span onClick={addItemHandler}>"+"</span>
-            </span>
+            <div className="flex items-center gap-2 border-gray-300 border-2 rounded-lg w-fit ">
+              <span
+                onClick={removeItemHandler}
+                className="hover:bg-gray-300 border-gray-300 border-r-2 w-fit p-2"
+              >
+                <AiOutlineMinusCircle className="text-xl" />
+              </span>
+              <span className="p-2">{quantity}</span>
+
+              <span
+                onClick={addItemHandler}
+                className="hover:bg-gray-300 border-gray-300 border-l-2 w-fit p-2"
+              >
+                <AiOutlinePlusCircle className="text-xl" />
+              </span>
+            </div>
           </td>
           <td>{price * quantity}</td>
           <td>

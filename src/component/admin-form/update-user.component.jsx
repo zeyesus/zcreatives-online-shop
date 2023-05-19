@@ -20,6 +20,7 @@ const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
     setFormState({ ...formState, [name]: value });
   };
   const handleSubmit = async (event) => {
+    const createdAt = new Date();
     event.preventDefault();
     if (password !== confirmPassword) {
       alert("password do not match");
@@ -29,6 +30,7 @@ const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
       UpdateItem(userId, "users", {
         displayName: displayName,
         email: userEmail,
+        createdAt: createdAt,
       });
       setFormState(defaultFormData);
     } catch (error) {
