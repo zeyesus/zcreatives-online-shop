@@ -1,5 +1,6 @@
 import React, { Fragment, useContext } from "react";
 import { CartContext } from "../context/cart.context";
+import { MdDeleteForever } from "react-icons/md";
 import { GrFormAdd } from "react-icons/gr";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 const CheckOutItem = ({ cartItem }) => {
@@ -12,10 +13,10 @@ const CheckOutItem = ({ cartItem }) => {
   const clearItemHandler = () => clearItemFromCart(cartItem);
   return (
     <Fragment>
-      <tbody>
+      <tbody className="text-xl">
         <tr>
           <td>
-            <img src={productImage} className="w-20" />
+            <img src={productImage} className="w-20  h-10 object-cover" />
           </td>
           <td>{productName}</td>
           <td>
@@ -39,7 +40,12 @@ const CheckOutItem = ({ cartItem }) => {
           <td>{price * quantity}</td>
           <td>
             {" "}
-            <span onClick={clearItemHandler}>Remove</span>
+            <span
+              onClick={clearItemHandler}
+              className="flex gap-2 text-lg items-center"
+            >
+              Remove <MdDeleteForever />
+            </span>
           </td>
         </tr>
       </tbody>

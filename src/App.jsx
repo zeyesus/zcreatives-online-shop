@@ -16,6 +16,7 @@ import AdminDashboard from "./route/admin/adminUsers.route";
 import AdminProductsTable from "./component/admin table/admin product table.component";
 import AddUserForm from "./component/admin-form/add-userform.component";
 import AdminUsersTable from "./component/admin table/admin User table";
+import AdminHome from "./route/admin/adminHome";
 
 function App() {
   return (
@@ -30,27 +31,21 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
         </Route>
         <Route path="/dashboard" element={<AdminNav />}>
-          <Route index element={<AdminDashboard />} />
+          <Route index element={<AdminHome />} />
           <Route path="/dashboard/adminorderpage" element={<AdminOrders />} />
           <Route path="/dashboard/adminusers" element={<AdminUsers />}>
             <Route
               path="/dashboard/adminusers/adduser"
               element={<AddUserForm />}
             />
-            <Route
-              path="/dashboard/adminusers/users"
-              element={<AdminUsersTable />}
-            />
+            <Route index element={<AdminUsersTable />} />
           </Route>
           <Route path="/dashboard/adminproduct" element={<AdminProducts />}>
             <Route
               path="/dashboard/adminproduct/addproducts"
               element={<AddProductForm />}
             />
-            <Route
-              path="/dashboard/adminproduct/products"
-              element={<AdminProductsTable />}
-            />
+            <Route index element={<AdminProductsTable />} />
           </Route>
         </Route>
       </Routes>

@@ -8,7 +8,7 @@ const AdminProducts = () => {
     <div className="grid sm:grid-cols-5  ">
       <div className="bg-slate-600 flex flex-col bg-white ">
         <Link
-          to="/dashboard/adminproduct/products"
+          to="/dashboard/adminproduct"
           className="flex justify-between items-center p-2  border-b-2 hover:border-brightYellow hover:bg-slate-100"
         >
           Products <HiClipboardList className="text-brightYellow h-6 w-6" />

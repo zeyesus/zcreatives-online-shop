@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../context/cart.context";
 
-const ShopCard = ({ product }) => {
+const ShopCard = ({ product, popup, setpopup, setPopupProducts }) => {
   const { productName, price, catagory, description, productImage } = product;
   const { addItemToCart } = useContext(CartContext);
 
@@ -9,9 +9,16 @@ const ShopCard = ({ product }) => {
     addItemToCart(product);
   };
   return (
-    <div className="h-96 hover:scale-95  transition-all gap-y-1 shadow-xl bg-white rounded-lg  ">
-      <img src={productImage} className="object-cover h-3/4 overflow-hidden" />
-      <div className="flex flex-col">
+    <div className=" hover:scale-95  transition-all gap-y-1 shadow-xl bg-white rounded-lg  ">
+      <img
+        src={productImage}
+        onClick={() => {
+          setpopup(!popup);
+          setPopupProducts(product);
+        }}
+        className="object-cover h-3/4 overflow-hidden"
+      />
+      <div className="flex flex-col p-1">
         <div className="flex justify-between">
           <h2 className="font-semibold text-lg">{productName}</h2>
           <h3>
@@ -28,7 +35,9 @@ const ShopCard = ({ product }) => {
             {catagory}
           </span>
         </div>
-        <span className="text-secondaryDark">{description}</span>
+        <span className="text-secondaryDark">
+          {description.slice(0, 35)}...
+        </span>
 
         <button
           className="btn-large btn-outline-hover"

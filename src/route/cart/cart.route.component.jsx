@@ -2,9 +2,11 @@ import React, { Fragment, useContext } from "react";
 import CheckOutItem from "../../component/check-out/checkout-item.component";
 import { CartContext } from "../../component/context/cart.context";
 import FormInput from "../../component/form/formInput.component";
+import { UserContext } from "../../component/context/user.context";
 
 const CartRoute = () => {
   const { cartItems, cartTotal } = useContext(CartContext);
+  const { currentuser } = useContext(UserContext);
   console.log(cartItems);
   return (
     <Fragment>

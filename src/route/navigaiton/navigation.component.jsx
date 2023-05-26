@@ -1,4 +1,6 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
+import { HiOutlineMenu } from "react-icons/hi";
+import { AiOutlineShopping } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { UserContext } from "../../component/context/user.context";
@@ -9,6 +11,7 @@ import CartDropDown from "../../component/Card-Dropdown/cart-drop.component";
 
 const Navbar = () => {
   const { currentuser } = useContext(UserContext);
+  const [tooglenavbar, settoglenavbar] = useState(false);
   console.log(currentuser); ///log current user///
 
   const handleLogOut = async () => {
@@ -20,7 +23,7 @@ const Navbar = () => {
   const { isCartOpen } = useContext(CartContext);
 
   return (
-    <Fragment>
+    <div className="relative">
       <nav className="relative bg-primaryDark mx-auto p-2 text-white">
         <div className="flex items-center justify-between px-6">
           <div className="">
@@ -34,7 +37,7 @@ const Navbar = () => {
               <Link to="/cart">Cart</Link>
             </div>
           </div>
-          <div className=" flex space-x-4">
+          <div className=" flex space-x-4 items-center">
             {currentuser ? (
               <span
                 className="hidden md:inline-block  btn  btn_hover"
@@ -57,12 +60,50 @@ const Navbar = () => {
               </Fragment>
             )}
             <CartIcon />
+            <h1
+              onClick={() => {
+                settoglenavbar(!tooglenavbar);
+              }}
+              className="md:hidden block"
+            >
+              <HiOutlineMenu size={30} />
+            </h1>
           </div>
           {isCartOpen && <CartDropDown />}
         </div>
+        {tooglenavbar && (
+          <div className="absolute left-0  w-full flex flex-col items-center gap-y-3 text-white bg-black ">
+            {" "}
+            <Link
+              to="/"
+              className="border-b-0  hover:border-b-2 hover:border-yellow"
+            >
+              Home
+            </Link>
+            <Link
+              to="/order"
+              className="border-b-0  hover:border-b-2 hover:border-yellow"
+            >
+              Order
+            </Link>
+            <Link
+              to="/design"
+              className="border-b-0  hover:border-b-2 hover:border-yellow"
+            >
+              Design
+            </Link>
+            <Link
+              to="/cart"
+              className="border-b-0  hover:border-b-2 hover:border-yellow"
+            >
+              Cart
+            </Link>
+          </div>
+        )}
       </nav>
+
       <Outlet />
-    </Fragment>
+    </div>
   );
 };
 
