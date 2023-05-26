@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { CartContext } from "../context/cart.context";
 
@@ -11,15 +11,20 @@ const ShowProductsPopUp = ({ popUpProduct, setpopup }) => {
     shortDescription,
     productImage,
   } = popUpProduct;
+  const defaultSize = { S: "", L: "", XL: "", XXL: "", XXXL: "" };
+  const [size, setSize] = useState(defaultSize);
   const { addItemToCart } = useContext(CartContext);
+  const addProductToCart = () => {
+    addItemToCart(popUpProduct);
+  };
+  const handleSize = (tsize) => {
+    setSize(tsize);
+  };
 
   const handlePopUp = () => {
     setpopup((prev) => {
       !prev;
     });
-  };
-  const addProductToCart = () => {
-    addItemToCart(popUpProduct);
   };
 
   return (
@@ -45,7 +50,12 @@ const ShowProductsPopUp = ({ popUpProduct, setpopup }) => {
             <span className="text-black text-2xl font-bold">{price}$</span>
             <span className="mt-1">Select Size</span>
             <div className="flex mt-1">
-              <span className="border-2 border-gray-400 ml-1 p-3">S</span>
+              <span
+                className="border-2 border-gray-400 ml-1 p-3 "
+                onClick={() => handleSize("L")}
+              >
+                S
+              </span>
               <span className="border-2 border-gray-400 ml-1 p-3">L</span>
               <span className="border-2 border-gray-400 ml-1 p-3">XL</span>
               <span className="border-2 border-gray-400 ml-1 p-3">XXL</span>
