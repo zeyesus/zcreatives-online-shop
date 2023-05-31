@@ -9,7 +9,7 @@ const Services = () => {
   return (
     <div>
       {/* //////Services section//// */}
-      <section className="container mt-16 ">
+      <section className="container mx-auto mt-16 ">
         <h1 className="flex justify-center font-semibold text-3xl text-yellow">
           Services We Provide
         </h1>

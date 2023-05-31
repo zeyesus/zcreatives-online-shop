@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import "./footer.component.css";
 import { zcreativeslogo } from "../../assets";
 const Footer = () => {
+  const date = new Date();
   return (
     <section className="bg-primaryDark text-white ">
-      <div className="h-60 flex flex-col md:flex-row md:justify-around md:items-center">
+      <div className="h-60 flex flex-col pl-8 md:pl-0 md:flex-row md:justify-around md:items-center">
         <div className="">
           <img src={zcreativeslogo} className="h-10 -ml-2" />
           <div className=" flex  space-x-3 mt-5">
@@ -32,6 +33,9 @@ const Footer = () => {
           </p>
         </div>
       </div>
+      <p className="text-gray-400 text-left md:text-center">
+        CopyRight reserved {date.getDate()}/{date.getUTCFullYear()}
+      </p>
     </section>
   );
 };

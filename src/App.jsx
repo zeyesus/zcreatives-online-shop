@@ -20,7 +20,7 @@ import AdminHome from "./route/admin/adminHome";
 
 function App() {
   return (
-    <div className="App container mx-auto bg-lightDark ">
+    <div className="App  mx-auto bg-lightDark ">
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route index element={<HomeRoute />} />

@@ -11,15 +11,21 @@ const ShowProductsPopUp = ({ popUpProduct, setpopup }) => {
     shortDescription,
     productImage,
   } = popUpProduct;
-  const defaultSize = { S: "", L: "", XL: "", XXL: "", XXXL: "" };
+  const [productWithSize, setProductsWithSize] = useState(popUpProduct);
+  const defaultSize = { size: "" };
   const [size, setSize] = useState(defaultSize);
   const { addItemToCart } = useContext(CartContext);
   const addProductToCart = () => {
-    addItemToCart(popUpProduct);
+    addItemToCart(productWithSize);
   };
-  const handleSize = (tsize) => {
-    setSize(tsize);
+  const handleSize = (event) => {
+    // setSize({ ["size"]: event.target.value });
+    setProductsWithSize((prev) => {
+      return { ...prev, ["size"]: event.target.value };
+    });
   };
+
+  console.log(productWithSize.size);
 
   const handlePopUp = () => {
     setpopup((prev) => {
@@ -49,24 +55,90 @@ const ShowProductsPopUp = ({ popUpProduct, setpopup }) => {
             </div>
             <span className="text-black text-2xl font-bold">{price}$</span>
             <span className="mt-1">Select Size</span>
-            <div className="flex mt-1">
-              <span
-                className="border-2 border-gray-400 ml-1 p-3 "
-                onClick={() => handleSize("L")}
+            <form className="flex gap-1 mt-1">
+              <input
+                id="small"
+                type="radio"
+                name="size"
+                value="S"
+                className=" peer"
+                required
+                checked={size == "S"}
+                onChange={handleSize}
+              />
+              <label
+                htmlFor="small"
+                className="border-2  border-gray-400 ml-1 p-3  hover:border-primaryDark"
               >
                 S
-              </span>
-              <span className="border-2 border-gray-400 ml-1 p-3">L</span>
-              <span className="border-2 border-gray-400 ml-1 p-3">XL</span>
-              <span className="border-2 border-gray-400 ml-1 p-3">XXL</span>
-              <span className="border-2 border-gray-400 ml-1 p-3">XXXL</span>
-            </div>
-            <button
-              className="btn-large btn-outline-hover w-64 my-3 "
-              onClick={addProductToCart}
-            >
-              Add to cart
-            </button>
+              </label>
+              <input
+                id="large"
+                type="radio"
+                name="size"
+                value="L"
+                checked={size == "L"}
+                onChange={handleSize}
+              />
+              <label
+                htmlFor="large"
+                className="border-2 border-gray-400 ml-1 p-3"
+              >
+                L
+              </label>
+              <input
+                id="extralarge"
+                type="radio"
+                name="size"
+                value="XL"
+                checked={size == "XL"}
+                onChange={handleSize}
+              />
+              <label
+                htmlFor="extralarge"
+                className="border-2 border-gray-400 ml-1 p-3"
+              >
+                XL
+              </label>
+              <input
+                id="doubleextralarge"
+                type="radio"
+                name="size"
+                value="XXL"
+                checked={size == "XXL"}
+                onChange={handleSize}
+              />
+              <label
+                htmlFor="doubleextralarge"
+                className="border-2 border-gray-400 ml-1 p-3"
+              >
+                XXL
+              </label>
+              <input
+                id="tripleextralarge"
+                type="radio"
+                name="size"
+                value="XXXL"
+                checked={size == "XXXL"}
+                onChange={handleSize}
+              />
+              <label
+                htmlFor="tripleextralarge"
+                className="border-2 border-gray-400 ml-1 p-3"
+              >
+                XXXL
+              </label>
+            </form>
+            {productWithSize.size == undefined ? (
+              <button>choose size firse</button>
+            ) : (
+              <button
+                className="btn-large btn-outline-hover w-64 my-3 "
+                onClick={addProductToCart}
+              >
+                Add to cart
+              </button>
+            )}
           </div>
         </div>
 

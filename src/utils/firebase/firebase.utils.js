@@ -111,6 +111,20 @@ export const addProductItem = async (data) => {
   }
 };
 
+///////////////////////////ADD ORDERS TO DB /////////////////////////
+
+export const addOrder = async (data) => {
+  try {
+    const res = await addDoc(collection(db, "orders"), {
+      ...data,
+      timestamp: serverTimestamp(),
+    });
+    console.log("successfuly insertede");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 //////////////////////...reading products...////////////////////////
 export const GetItems = async (collectionName) => {
   let products = [];

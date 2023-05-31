@@ -13,7 +13,6 @@ const HomeRoute = () => {
       <Services />
       <DesignSection />
       <ShopSection />
-      <Footer />
     </Fragment>
   );
 };

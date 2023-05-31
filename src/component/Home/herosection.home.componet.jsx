@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 const HeroSection = () => {
   return (
     <section className="h-screen w-full hero-image flex items-center justify-center md:justify-start">
-      <div className=" md:ml-20 text-center md:text-left">
-        <h1 className="text-8xl font-normal ">Wear</h1>
-        <h1 className="text-8xl font-normal">Quality</h1>
+      <div className=" md:ml-20 lg:ml-40 text-center md:text-left container mx-auto">
+        <h1 className="text-9xl font-normal ">Wear</h1>
+        <h1 className="text-9xl font-normal">Quality</h1>
         <h1 className="text-9xl font-normal text-yellow">Print</h1>
         <div className="mt-9">
           <Link to="/signup">

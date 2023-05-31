@@ -5,18 +5,22 @@ const ShopSection = () => {
   return (
     <section>
       <section className=" mt-14 ">
-        <div className="flex justify-around items-center h-80">
+        <div className="flex justify-around items-center h-[300px] md:h-auto ">
           <div className="hidden md:block">
-            <img src={Girlwithbg} alt="" className="h-96" />
+            <img src={Girlwithbg} alt="" className="h-[420px]" />
           </div>
           <div>
             <h1 className="heading1 ">
-              Design What You
+              Explore Trending Design
               <br />
-              Have in mind
+              Made By Us
             </h1>
+            <p className="mt-2 text-gray-400">
+              Explore latest modern design made by our elite designers which are
+              <br /> fresh looks comic and eyecaching.
+            </p>
             <div className="mt-16">
-              <Link to="/signin" className="btn-large btn_hover ">
+              <Link to="/order" className="btn-large btn_hover ">
                 Join for More
               </Link>
             </div>
