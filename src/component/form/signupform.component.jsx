@@ -7,6 +7,8 @@ import {
 import girl from "../../assets/girlwithbgshape.png";
 import FormInput from "./formInput.component";
 import { GirlWithBgShape } from "../../assets";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 const defaultFormFields = {
   displayName: "",
   email: "",
@@ -15,10 +17,10 @@ const defaultFormFields = {
 };
 const SignUpForm = () => {
   // const { setcurrentuser } = useContext(UserContext); ////context////
-
+  const navigate = useNavigate();
   const [formFields, setformFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmpassword } = formFields;
-
+  const location = useLocation();
   console.log(formFields);
 
   const reserFormfields = () => {
@@ -31,8 +33,20 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!email) {
+      toast.error("Please enter an email address");
+      return;
+    }
+    if (!password) {
+      toast.error("Please enter a password");
+      return;
+    }
     if (password !== confirmpassword) {
-      alert("password do not match");
+      toast.error("password do not match");
+      return;
+    }
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
       return;
     }
     try {
@@ -40,16 +54,20 @@ const SignUpForm = () => {
         email,
         password
       );
+
       //////////Context for email and password login///////////////
       // setcurrentuser(user);
       ///////////////LOG////////////
       console.log(user);
 
       await createUserDocumentFromAuth(user, { displayName });
+      location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
       reserFormfields();
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
-        alert("The email you enterd is already taken");
+        toast.error("The email you enterd is already taken");
+      } else if (error.code == "auth/invalid-email") {
+        toast.error("Invalid email address");
       } else {
         console.log("user created encpunterd an error:", error);
       }
@@ -58,6 +76,7 @@ const SignUpForm = () => {
 
   const logGoogleUser = async () => {
     await signInWithGooglePopup();
+    location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
     //console.log(response);
     // const { user } = response;
     // const userDocRef = await createUserDocumentFromAuth(user);

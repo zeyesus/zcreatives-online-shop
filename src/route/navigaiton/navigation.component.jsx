@@ -1,28 +1,48 @@
 import React, { Fragment, useContext, useState } from "react";
 import { HiOutlineMenu } from "react-icons/hi";
-import { AiOutlineShopping } from "react-icons/ai";
+import { AiOutlineShopping, AiOutlineUserDelete } from "react-icons/ai";
+import { RiUserSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { FaUserAlt } from "react-icons/fa";
+import { GrUpdate } from "react-icons/gr";
 import { Outlet } from "react-router-dom";
 import { UserContext } from "../../component/context/user.context";
 import { CartContext } from "../../component/context/cart.context";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+import {
+  DeletItem,
+  deleteUserFromAuth,
+  sendPasswordReset,
+  signOutUser,
+} from "../../utils/firebase/firebase.utils";
 import CartIcon from "../../component/cart-icon/cart-icon.component";
 import CartDropDown from "../../component/Card-Dropdown/cart-drop.component";
 import Footer from "../../component/footer/footer.component";
+import Dropdown from "../../component/dropdown option/dropdownOptions.nav";
 
 const Navbar = () => {
   const { currentuser } = useContext(UserContext);
   const [tooglenavbar, settoglenavbar] = useState(false);
-  console.log(currentuser); ///log current user///
+
+  console.log(currentuser, "//////////from nav "); ///log current user///
 
   const handleLogOut = async () => {
     await signOutUser();
     // console.log(currentuser);
     console.log("successfuly loged out");
   };
+  const handleUpdate = async () => {
+    const { email } = currentuser;
+    await sendPasswordReset(email);
+  };
   ////////////CART CONTEXT//////
   const { isCartOpen } = useContext(CartContext);
+  const handleUserAccountDelete = async () => {
+    const { uid } = currentuser;
+    await deleteUserFromAuth();
+    await DeletItem(uid, "users");
+    // console.log(currentuser);
+    console.log("successfuly deleted an account out");
+  };
 
   return (
     <Fragment>
@@ -50,19 +70,58 @@ const Navbar = () => {
             </div>
             <div className=" flex space-x-4 items-center">
               {currentuser ? (
-                <span
-                  className="hidden md:inline-block  btn  btn_hover"
-                  onClick={handleLogOut}
-                >
-                  Sign Out
-                </span>
+                <div className="flex items-center gap-x-3">
+                  <span
+                    className="hidden md:inline-block  btn  btn_hover"
+                    onClick={handleLogOut}
+                  >
+                    Sign Out
+                  </span>
+                  <Dropdown
+                    dropDownName={<RiUserSettingsFill className=" text-2xl" />}
+                  >
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                      role="menuitem"
+                      onClick={handleUpdate}
+                    >
+                      <GrUpdate className="inline-block pr-1 text-xl" />{" "}
+                      <span>Update Profile</span>
+                    </button>
+                    <button
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 hover:text-gray-900"
+                      role="menuitem"
+                      onClick={handleUserAccountDelete}
+                    >
+                      <AiOutlineUserDelete className="inline-block pr-1 text-xl" />
+                      <span>Delete Account</span>
+                    </button>
+                  </Dropdown>
+                </div>
               ) : (
                 <Fragment>
-                  <Link to="/signin">
+                  {/* <Link to="/signin">
                     <button className="hidden md:inline-block  btn  btn_hover">
                       Sign in
                     </button>
-                  </Link>
+                  </Link> */}
+                  <Dropdown dropDownName={"Sign In"}>
+                    <Link
+                      to="/signin"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Sign in as user
+                    </Link>
+
+                    <Link
+                      to="/dashboard"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      role="menuitem"
+                    >
+                      Sign in as Admin
+                    </Link>
+                  </Dropdown>
                   <Link to="/signup">
                     <button className="hidden md:inline-block  btn btn_hover">
                       Sign up

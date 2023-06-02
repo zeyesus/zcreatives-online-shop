@@ -34,16 +34,16 @@ const ShowProductsPopUp = ({ popUpProduct, setpopup }) => {
   };
 
   return (
-    <div className="absolute top-0 h-screen bg-black bg-opacity-60 w-full text-xl ">
-      <div className="relative bg-white max-w-[1200px] mx-auto mt-10  rounded-xl">
+    <div className="absolute z-50 top-0 h-full bg-black bg-opacity-60 w-full text-xl ">
+      <div className="sticky top-40  bg-white max-w-[1200px]  mx-auto mt-10  rounded-xl">
         <MdCancel
           onClick={handlePopUp}
           className="absolute top-2 right-5 text-3xl z-40"
         />
-        <div className="flex gap-x-4">
+        <div className="flex md:flex-row flex-col gap-x-4">
           <img
             src={productImage}
-            className="object-cover w-2/5 overflow-hidden"
+            className="object-cover w-2/5 overflow-hidden "
           />
           <div className="flex flex-col gap-2">
             <span className="text-black text-2xl font-bold">{productName}</span>
@@ -55,7 +55,7 @@ const ShowProductsPopUp = ({ popUpProduct, setpopup }) => {
             </div>
             <span className="text-black text-2xl font-bold">{price}$</span>
             <span className="mt-1">Select Size</span>
-            <form className="flex gap-1 mt-1">
+            <form className="flex flex-wrap gap-1 mt-1">
               <input
                 id="small"
                 type="radio"

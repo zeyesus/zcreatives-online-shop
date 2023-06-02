@@ -1,8 +1,14 @@
 import React, { Fragment } from "react";
 import { Link, Outlet } from "react-router-dom";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 import AddProductForm from "../../component/admin-form/add-product.component";
 import { RiAdminFill } from "react-icons/ri";
+import { AiFillDashboard } from "react-icons/ai";
+import Dropdown from "../../component/dropdown option/dropdownOptions.nav";
 const AdminNav = () => {
+  const handleSignOut = async () => {
+    await signOutUser();
+  };
   return (
     // <Fragment>
     //   <h2>admin nav</h2>
@@ -18,7 +24,7 @@ const AdminNav = () => {
               className="w-24 "
               alt=""
             /> */}
-            <RiAdminFill className="text-white h-6 w-6" />
+            <AiFillDashboard className="text-white h-6 w-6" />
             Admin dashboard
           </div>
           <div>
@@ -38,11 +44,27 @@ const AdminNav = () => {
               </span> */}
 
             <Fragment>
-              <Link to="/adminsignin">
+              <Dropdown dropDownName={"Admin account"}>
+                <button
+                  onClick={handleSignOut}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  Sign Out
+                </button>
+                <button
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  Delete Account
+                </button>
+              </Dropdown>
+
+              {/* <Link to="/adminsignin">
                 <button className="hidden md:inline-block  btn  btn_hover">
                   Sign in
                 </button>
-              </Link>
+              </Link> */}
             </Fragment>
           </div>
         </div>

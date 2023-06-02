@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { UserContext } from "../context/user.context";
 import { CartContext } from "../context/cart.context";
+import { Navigate } from "react-router-dom";
 
 const ChapPayment = ({ fname, lname, amount, email }) => {
   const currentDate = new Date();
-  //   const { currentuser } = useContext(UserContext);
+  const { currentuser } = useContext(UserContext);
   const { cartTotal } = useContext(CartContext);
   //   const { displayName, email } = currentuser;
   const tx_ref = `${fname}-tx-2243065`;
@@ -46,7 +47,10 @@ const ChapPayment = ({ fname, lname, amount, email }) => {
           name="meta[title]"
           value="Payment to z-creatives"
         />
-        <button type="submit" className="bg-fuchsia-500 p-3 rounded-xl">
+        <button
+          type="submit"
+          className="btn-large btn_hover bg-yellow mt-10 w-2/3 mx-auto"
+        >
           Pay Now
         </button>
       </form>

@@ -3,10 +3,11 @@ import CheckOutItem from "../../component/check-out/checkout-item.component";
 import { CartContext } from "../../component/context/cart.context";
 import FormInput from "../../component/form/formInput.component";
 import { UserContext } from "../../component/context/user.context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addOrder } from "../../utils/firebase/firebase.utils";
 import PaymentForm from "../../component/payment/payInfo.form";
 import ChapPayment from "../../component/payment/paymentchapa";
+import ProtectedUserRoute from "../protected route/protectedRoute.route";
 const CartRoute = () => {
   const { cartItems, cartTotal, setcartItems } = useContext(CartContext);
   const { currentuser } = useContext(UserContext);
@@ -119,8 +120,17 @@ const CartRoute = () => {
               onChange={handleChange}
             />
             {/* <button className="btn-large mt-4">Check Out</button> */}
-          </form>
-          <ChapPayment fname={fname} lname={lname} email={email} />
+          </form>{" "}
+          {currentuser ? (
+            <ChapPayment fname={fname} lname={lname} email={email} />
+          ) : (
+            <Link
+              to="/signin"
+              className="btn-large btn_hover bg-yellow mt-10 w-2/3 mx-auto"
+            >
+              Pay Now
+            </Link>
+          )}
           {/* <PaymentForm /> */}
           {/* <button
             className="p-2 bg-brightYellow"

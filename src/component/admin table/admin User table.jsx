@@ -32,6 +32,7 @@ const AdminUsersTable = () => {
             </thead>
             <tbody>
               {users.map((user) => {
+                console.log(user.id, "////////from user tabel");
                 return (
                   <tr className="border-b-2 border-gray-200" key={user.id}>
                     <td className="p-2 ">{user.displayName}</td>

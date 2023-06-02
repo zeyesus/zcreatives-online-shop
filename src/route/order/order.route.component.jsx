@@ -9,19 +9,23 @@ const OrderRoute = () => {
   const [popUpProduct, setPopupProducts] = useState({});
   const { products } = useContext(ProductsContext);
   const [shopproducts, setShopProducts] = useState([]);
+  const [changeToPreviousProducts, setPreviousProducts] = useState(false);
+
   useEffect(() => {
     setShopProducts(products);
-  }, [products]);
+  }, [products, changeToPreviousProducts]);
 
   return (
     <Fragment>
-      <div className="grid grid-cols-6 ">
+      <div className="grid grid-cols-6 h-screen">
         <div className="bg-white ">
           <FilterOrder
             sideNavShow={sideNavShow}
             setSideNavbarShow={setSideNavbarShow}
             products={shopproducts}
             setShopProducts={setShopProducts}
+            changeToPreviousProducts={changeToPreviousProducts}
+            setPreviousProducts={setPreviousProducts}
           />
         </div>
         <div className="col-span-5 grid grid-cols-1 md:grid-cols-3 md:gap-3 lg:grid-cols-4 gap-6">

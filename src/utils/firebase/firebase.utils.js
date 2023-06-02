@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  deleteUser,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -26,6 +28,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB_2nuRs97aAv3IWbTnsp3spJwi5auJxXM",
@@ -93,10 +96,36 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 };
 
 export const signOutUser = async () => {
-  return await signOut(auth);
+  await signOut(auth);
+  toast.success("Successfuly logged out");
 };
 export const onAuthStateChangeListiner = (callback) =>
   onAuthStateChanged(auth, callback);
+
+////////////////////Delete UserAcount//////////////////
+export const deleteUserFromAuth = async () => {
+  const user = auth.currentUser;
+
+  await deleteUser(user)
+    .then(() => {
+      toast.success("successfult deleted");
+    })
+    .catch((error) => {
+      // An error ocurred
+      console.log(error);
+    });
+};
+
+/////////////////////Send Password Reset//////////////////
+export const sendPasswordReset = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    toast.info("Password reset link sent!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
 
 //////////// ADD PRODUCT TO DB ///////////////
 export const addProductItem = async (data) => {

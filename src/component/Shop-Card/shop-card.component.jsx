@@ -9,7 +9,7 @@ const ShopCard = ({ product, popup, setpopup, setPopupProducts }) => {
     addItemToCart(product);
   };
   return (
-    <div className=" hover:scale-95  transition-all gap-y-1 shadow-xl bg-white rounded-lg  ">
+    <div className=" hover:scale-95 h-[480px] transition-all gap-y-1 shadow-xl bg-white rounded-lg  ">
       <img
         src={productImage}
         onClick={() => {

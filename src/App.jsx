@@ -1,5 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./route/navigaiton/navigation.component";
 import HomeRoute from "./route/home/home.route.component";
 import OrderRoute from "./route/order/order.route.component";
@@ -17,7 +19,8 @@ import AdminProductsTable from "./component/admin table/admin product table.comp
 import AddUserForm from "./component/admin-form/add-userform.component";
 import AdminUsersTable from "./component/admin table/admin User table";
 import AdminHome from "./route/admin/adminHome";
-
+import ProtectedAdminRoute from "./route/protected route/protectedRoute.route";
+import AdminSignInForm from "./component/admin-form/adminSignin Form";
 function App() {
   return (
     <div className="App  mx-auto bg-lightDark ">
@@ -30,8 +33,16 @@ function App() {
           <Route path="/signin" element={<SignIN />} />
           <Route path="/signup" element={<SignUp />} />
         </Route>
-        <Route path="/dashboard" element={<AdminNav />}>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedAdminRoute>
+              <AdminNav />
+            </ProtectedAdminRoute>
+          }
+        >
           <Route index element={<AdminHome />} />
+
           <Route path="/dashboard/adminorderpage" element={<AdminOrders />} />
           <Route path="/dashboard/adminusers" element={<AdminUsers />}>
             <Route
@@ -48,7 +59,9 @@ function App() {
             <Route index element={<AdminProductsTable />} />
           </Route>
         </Route>
+        <Route path="/adminsignin" element={<AdminSignInForm />} />
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
