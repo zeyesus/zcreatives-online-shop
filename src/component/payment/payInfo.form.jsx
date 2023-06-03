@@ -19,11 +19,11 @@ const PaymentForm = () => {
     var raw = JSON.stringify({
       amount: "100",
       currency: "ETB",
-      email: "abebech_bekele@gmail.com",
+      email: "abebawzeyesus@gmail.com",
       first_name: "Bilen",
       last_name: "Gizachew",
       phone_number: "0912345678",
-      tx_ref: "cheww23atatest-6669",
+      tx_ref: "ch21ww23atatest-6669",
       callback_url: "https://webhook.site/077164d6-29cb-40df-ba29-8a00e59a7e60",
       return_url: "https://www.google.com/",
       "customization[title]": "Payment for my favourite merchant",
@@ -32,6 +32,7 @@ const PaymentForm = () => {
 
     var requestOptions = {
       method: "POST",
+      accept: "*/*",
       headers: myHeaders,
       body: raw,
       redirect: "follow",

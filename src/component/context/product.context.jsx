@@ -10,6 +10,8 @@ export const ProductsContext = createContext({
 });
 
 export const ProductContextProvider = ({ children }) => {
+  const [products, setProduct] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getProducts = async () => {
       const productLists = await GetItems("products");
@@ -19,8 +21,6 @@ export const ProductContextProvider = ({ children }) => {
     getProducts();
   }, []);
 
-  const [products, setProduct] = useState([]);
-  const [loading, setLoading] = useState(true);
   const Value = { products, setProduct, loading };
   return (
     <ProductsContext.Provider value={Value}>

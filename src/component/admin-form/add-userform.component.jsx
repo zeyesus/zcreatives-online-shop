@@ -5,6 +5,8 @@ import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 const AddUserForm = () => {
   const defaultFormData = {
     displayName: "",
@@ -15,7 +17,7 @@ const AddUserForm = () => {
 
   const [formState, setFormState] = useState(defaultFormData);
   const { displayName, userEmail, password, confirmPassword } = formState;
-
+  const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
@@ -23,7 +25,7 @@ const AddUserForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      alert("password do not match");
+      toast.error("password do not match");
       return;
     }
     try {
@@ -37,10 +39,12 @@ const AddUserForm = () => {
       console.log(user);
 
       await createUserDocumentFromAuth(user, { displayName });
+      toast.success("Account Created successfuly");
+      navigate("/dashboard/adminusers");
       setFormState(defaultFormData);
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
-        alert("The email you enterd is already taken");
+        toast.error("The email you enterd is already taken");
       } else {
         console.log("user created encpunterd an error:", error);
       }

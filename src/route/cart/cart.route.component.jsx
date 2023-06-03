@@ -14,7 +14,7 @@ const CartRoute = () => {
 
   const navigate = useNavigate();
 
-  const defaultFormData = { fname: "", lname: "", location: "", tid: "" };
+  const defaultFormData = { fname: "", lname: "", location: "", email: "" };
   const [chekoutformdata, setchekoutformdata] = useState(defaultFormData);
   const { fname, lname, location, email } = chekoutformdata;
   const handleChange = (event) => {
@@ -26,8 +26,43 @@ const CartRoute = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const order = { order: cartItems, user: chekoutformdata };
+    const { fname, lname, email } = chekoutformdata;
+    ///////////////////////JS METHOD //////////////////
+    // var myHeaders = new Headers();
+    // myHeaders.append(
+    //   "Authorization",
+    //   "Bearer CHASECK_TEST-yqdk2G7PcnhEBV7pMmhhXxyP2g4aEy8M"
+    // );
+    // myHeaders.append("Content-Type", "application/json");
+
+    // var raw = JSON.stringify({
+    //   amount: "100",
+    //   currency: "ETB",
+    //   email: "abebawzeyesus@gmail.com",
+    //   first_name: "Bilen",
+    //   last_name: "Gizachew",
+    //   phone_number: "0918285288",
+    //   tx_ref: "chs1a00d2t-6669",
+
+    //   "customization[title]": "Payment for my favourite merchant",
+    //   "customization[description]": "I love online payments",
+    // });
+
+    // var requestOptions = {
+    //   mode: "no-cors",
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: "follow",
+    // };
+
+    // fetch("https://api.chapa.co/v1/transaction/initialize", requestOptions)
+    //   .then((response) => response.text())
+    //   .then((result) => console.log(result))
+    //   .catch((error) => console.log("error", error));
+    ////////////////////////////////////////////////////////////////////////////
+
     try {
       await addOrder(order);
       alert("order have been placed successfuly");
@@ -120,8 +155,15 @@ const CartRoute = () => {
               onChange={handleChange}
             />
             {/* <button className="btn-large mt-4">Check Out</button> */}
+            <ChapPayment
+              onClick={handleSubmit}
+              fname={fname}
+              lname={lname}
+              email={email}
+            />
           </form>{" "}
-          {currentuser ? (
+          {/* ////////////////chapa payment///////////////////// */}
+          {/* {currentuser ? (
             <ChapPayment fname={fname} lname={lname} email={email} />
           ) : (
             <Link
@@ -130,8 +172,9 @@ const CartRoute = () => {
             >
               Pay Now
             </Link>
-          )}
-          {/* <PaymentForm /> */}
+          )} */}
+          {/* ///////////////////////////////////////// */}
+          <PaymentForm />
           {/* <button
             className="p-2 bg-brightYellow"
             onClick={() => {

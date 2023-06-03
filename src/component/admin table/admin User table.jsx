@@ -5,14 +5,14 @@ import UpdateUserForm from "../admin-form/update-user.component";
 const AdminUsersTable = () => {
   const [users, setUsers] = useState([]);
   const [currentupdateduser, setcurrentupdateduser] = useState({});
-  const [toogleupdateform, setupdateform] = useState(false);
+  const [toogleupdateform, settoogleupdateform] = useState(false);
   useEffect(() => {
     const getusers = async () => {
       const usersFromDb = await GetItems("users");
       setUsers(usersFromDb);
     };
     getusers();
-  }, []);
+  }, [toogleupdateform]);
 
   const hanldeClick = async (userId, collectionName) => {
     await DeletItem(userId, collectionName);
@@ -45,7 +45,7 @@ const AdminUsersTable = () => {
                         onClick={() => {
                           setcurrentupdateduser(user);
 
-                          setupdateform((prev) => !prev);
+                          settoogleupdateform((prev) => !prev);
                         }}
                       >
                         Edit
@@ -67,7 +67,8 @@ const AdminUsersTable = () => {
         </div>
         {toogleupdateform && (
           <UpdateUserForm
-            closePopup={() => setupdateform((prev) => !prev)}
+            toogleupdateform={toogleupdateform}
+            settoogleupdateform={settoogleupdateform}
             currentupdateduser={currentupdateduser}
           />
         )}

@@ -61,7 +61,8 @@ const SignUpForm = () => {
       console.log(user);
 
       await createUserDocumentFromAuth(user, { displayName });
-      location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
+      toast.success("Account created successfuly");
+      // location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
       reserFormfields();
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {

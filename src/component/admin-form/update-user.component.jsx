@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../form/formInput.component";
 import { MdCancel } from "react-icons/md";
 import { UpdateItem } from "../../utils/firebase/firebase.utils";
-const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
+import { toast } from "react-toastify";
+const UpdateUserForm = ({
+  settoogleupdateform,
+  toogleupdateform,
+  currentupdateduser,
+}) => {
+  const navigate = useNavigate();
   const { id: userId, displayName: username, email } = currentupdateduser;
   const defaultFormData = {
     displayName: username,
@@ -23,7 +30,7 @@ const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
     const createdAt = new Date();
     event.preventDefault();
     if (password !== confirmPassword) {
-      alert("password do not match");
+      toast.error("password do not match");
       return;
     }
     try {
@@ -32,6 +39,8 @@ const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
         email: userEmail,
         createdAt: createdAt,
       });
+      settoogleupdateform((prev) => !prev);
+      //navigate("/dashboard/adminusers");
       setFormState(defaultFormData);
     } catch (error) {
       console.log(error);
@@ -45,7 +54,10 @@ const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
           onSubmit={handleSubmit}
           className="max-w-lg bg-gray-100 mb-8 shadow-lg px-6 py-2 mx-auto mt-5 rounded-lg "
         >
-          <MdCancel className="text-3xl ml-auto" onClick={closePopup} />
+          <MdCancel
+            className="text-3xl ml-auto"
+            onClick={() => settoogleupdateform((prev) => !prev)}
+          />
           <h2 className="text-2xl uppercase text-center">Create user</h2>
           <FormInput
             label="Full name"
@@ -91,7 +103,7 @@ const UpdateUserForm = ({ closePopup, currentupdateduser }) => {
             className="disabled:bg-gray-400  btn-large  btn_hover bg-yellow mt-8  "
             type="submit"
           >
-            Create user
+            Update User
           </button>
         </form>
       </div>

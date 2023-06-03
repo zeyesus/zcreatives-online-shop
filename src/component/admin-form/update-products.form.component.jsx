@@ -3,6 +3,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { UpdateItem, db, storage } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form/formInput.component";
 import { MdCancel } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const UpdateProductForm = ({ closePopup, currentupdatedProduct }) => {
   const {
@@ -57,7 +58,7 @@ const UpdateProductForm = ({ closePopup, currentupdatedProduct }) => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
         setuploadProgress(progress);
-
+        toast.info("Upload is " + progress + "% done");
         console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":

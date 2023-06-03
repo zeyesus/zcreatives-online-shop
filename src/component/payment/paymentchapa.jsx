@@ -10,7 +10,9 @@ const ChapPayment = ({ fname, lname, amount, email }) => {
   //   const { displayName, email } = currentuser;
   const tx_ref = `${fname}-tx-2243065`;
   const public_chapaKey = "CHAPUBK_TEST-QEBhIYUTRif97TqAT2TV5bIzwrznd6Ua";
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <div>
       <form method="POST" action="https://api.chapa.co/v1/hosted/pay">
@@ -49,9 +51,9 @@ const ChapPayment = ({ fname, lname, amount, email }) => {
         />
         <button
           type="submit"
-          className="btn-large btn_hover bg-yellow mt-10 w-2/3 mx-auto"
+          className="btn-large btn_hover bg-green-600 mt-10 w-2/3 mx-auto"
         >
-          Pay Now
+          Pay Now With chapa
         </button>
       </form>
     </div>

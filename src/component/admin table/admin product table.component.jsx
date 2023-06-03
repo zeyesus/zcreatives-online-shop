@@ -1,21 +1,26 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { ProductsContext } from "../../component/context/product.context";
-import { DeletItem } from "../../utils/firebase/firebase.utils";
+import { DeletItem, GetItems } from "../../utils/firebase/firebase.utils";
 import { collection } from "firebase/firestore";
 import UpdateProductForm from "../admin-form/update-products.form.component";
 
 const AdminProductsTable = () => {
-  const { products, setProduct, loading } = useContext(ProductsContext);
+  // const { products, setProduct, loading } = useContext(ProductsContext);
+  const { loading } = useContext(ProductsContext);
+  const [productsItems, setProductsItem] = useState([]);
   const [toggleUpdateForm, setToggleUpdateForm] = useState(false);
   const [currentUpdatedProduct, setCurrentUpdatedProduct] = useState({});
+  useEffect(() => {
+    const getProducts = async () => {
+      const usersFromDb = await GetItems("products");
+      setProductsItem(usersFromDb);
+    };
+    getProducts();
+  }, [toggleUpdateForm]);
 
   const hanldeClick = async (productId, collectionName) => {
     await DeletItem(productId, collectionName);
-    // setProduct(
-    //   products.filter((pitem) => {
-    //     pitem.id !== productId;
-    //   })
-    // );
+    setProductsItem(productsItems.filter((pitem) => pitem.id !== productId));
   };
 
   return (
@@ -38,7 +43,7 @@ const AdminProductsTable = () => {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {products.map((product) => {
+              {productsItems.map((product) => {
                 return (
                   <tr className="border-b-2 border-gray-200" key={product.id}>
                     <td className="p-2 ">

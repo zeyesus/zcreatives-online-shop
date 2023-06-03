@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+
 import { Navigate, redirect, useLocation, useNavigate } from "react-router-dom";
 import {
   signInWithGooglePopup,
@@ -8,6 +9,8 @@ import {
 import FormInput from "../../component/form/formInput.component";
 import { GirlWithBgShape } from "../../assets";
 import { MdCancel } from "react-icons/md";
+import { toast } from "react-toastify";
+
 const defaultForm = {
   email: "",
   password: "",
@@ -33,7 +36,7 @@ const AdminSignInForm = () => {
       /////USER CONTEXT////////
       // setcurrentuser(user);
       //console.log(user);
-
+      toast.success("successfuly Logged in");
       navigate("/dashboard");
       resetFormFields();
     } catch (error) {
