@@ -5,6 +5,7 @@ import Services from "../../component/Home/servicesection.home.component";
 import DesignSection from "../../component/Home/designfeature.home.component";
 import ShopSection from "../../component/Home/shopsection.home.component";
 import Footer from "../../component/footer/footer.component";
+import PromoSection from "../../component/Home/promoSection.home";
 const HomeRoute = () => {
   return (
     <Fragment>
@@ -12,6 +13,7 @@ const HomeRoute = () => {
       <HeroSection />
       <Services />
       <DesignSection />
+      <PromoSection />
       <ShopSection />
     </Fragment>
   );

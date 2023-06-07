@@ -13,10 +13,11 @@ const AddUserForm = () => {
     userEmail: "",
     password: "",
     confirmPassword: "",
+    role: "",
   };
 
   const [formState, setFormState] = useState(defaultFormData);
-  const { displayName, userEmail, password, confirmPassword } = formState;
+  const { displayName, userEmail, password, confirmPassword, role } = formState;
   const navigate = useNavigate();
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -38,7 +39,7 @@ const AddUserForm = () => {
       ///////////////LOG////////////
       console.log(user);
 
-      await createUserDocumentFromAuth(user, { displayName });
+      await createUserDocumentFromAuth(user, { displayName, role });
       toast.success("Account Created successfuly");
       navigate("/dashboard/adminusers");
       setFormState(defaultFormData);
@@ -98,11 +99,27 @@ const AddUserForm = () => {
           required
           className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
         />
+        <div className="flex flex-col mt-4 ">
+          <label>Role</label>
+          <select
+            name="role"
+            value={role}
+            onChange={handleChange}
+            required
+            className=" h-10 rounded-lg mt-2 focus:ring-2  focus:ring-yellow"
+          >
+            <option value="">Please choose catagory</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+            <option value="designer">Designer</option>
+            <option value="printworker">Printworker</option>
+          </select>
+        </div>
         <button
           className="disabled:bg-gray-400  btn-large  btn_hover bg-yellow mt-8  "
           type="submit"
         >
-          Create user
+          Create User
         </button>
       </form>
     </Fragment>

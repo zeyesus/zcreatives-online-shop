@@ -4,7 +4,7 @@ import Girlwithbg from "../../assets/girlwithbgshape.png";
 const ShopSection = () => {
   return (
     <section>
-      <section className=" mt-14 ">
+      <section className=" mt-14  ">
         <div className="flex justify-around items-center h-[300px] md:h-auto ">
           <div className="hidden md:block">
             <img src={Girlwithbg} alt="" className="h-[420px]" />

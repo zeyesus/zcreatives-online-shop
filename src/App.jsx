@@ -21,6 +21,8 @@ import AdminUsersTable from "./component/admin table/admin User table";
 import AdminHome from "./route/admin/adminHome";
 import ProtectedAdminRoute from "./route/protected route/protectedRoute.route";
 import AdminSignInForm from "./component/admin-form/adminSignin Form";
+import ProtectedPrintWorkerRoute from "./route/protected route/printworkerProtectedRoute";
+import ProtectedDesignerRoute from "./route/protected route/designerProtecteRoute";
 function App() {
   return (
     <div className="App  mx-auto bg-lightDark ">
@@ -30,9 +32,12 @@ function App() {
           <Route path="/order" element={<OrderRoute />} />
           <Route path="/design" element={<DesignRoute />} />
           <Route path="/cart" element={<CartRoute />} />
-          <Route path="/signin" element={<SignIN />} />
+
           <Route path="/signup" element={<SignUp />} />
         </Route>
+
+        <Route path="/signin" element={<SignIN />} />
+
         <Route
           path="/dashboard"
           element={
@@ -41,7 +46,7 @@ function App() {
             </ProtectedAdminRoute>
           }
         >
-          <Route index element={<AdminHome />} />
+          <Route index element={<AdminHome user={"Admin"} />} />
 
           <Route path="/dashboard/adminorderpage" element={<AdminOrders />} />
           <Route path="/dashboard/adminusers" element={<AdminUsers />}>
@@ -51,6 +56,7 @@ function App() {
             />
             <Route index element={<AdminUsersTable />} />
           </Route>
+
           <Route path="/dashboard/adminproduct" element={<AdminProducts />}>
             <Route
               path="/dashboard/adminproduct/addproducts"
@@ -59,6 +65,37 @@ function App() {
             <Route index element={<AdminProductsTable />} />
           </Route>
         </Route>
+
+        <Route
+          path="/printworker"
+          element={
+            <ProtectedPrintWorkerRoute>
+              <AdminNav />
+            </ProtectedPrintWorkerRoute>
+          }
+        >
+          <Route index element={<AdminHome user={"Print Worker"} />} />
+          <Route path="/printworker/adminorderpage" element={<AdminOrders />} />
+        </Route>
+
+        <Route
+          path="/designer"
+          element={
+            <ProtectedDesignerRoute>
+              <AdminNav />
+            </ProtectedDesignerRoute>
+          }
+        >
+          <Route index element={<AdminHome user={"Designer"} />} />
+          <Route path="/designer/adminproduct" element={<AdminProducts />}>
+            <Route
+              path="/designer/adminproduct/addproducts"
+              element={<AddProductForm />}
+            />
+            <Route index element={<AdminProductsTable />} />
+          </Route>
+        </Route>
+
         <Route path="/adminsignin" element={<AdminSignInForm />} />
       </Routes>
       <ToastContainer />

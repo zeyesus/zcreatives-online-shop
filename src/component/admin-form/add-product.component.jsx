@@ -7,6 +7,7 @@ import {
   storage,
 } from "../../utils/firebase/firebase.utils";
 import { collection, addDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const defaultProductData = {
   productName: "",
@@ -92,15 +93,27 @@ const AddProductForm = () => {
 
   const handleFileUpload = (event) => {
     const fileUploaded = event.target.files[0];
-    setimageUpload(fileUploaded);
+    const acceptedFileTypes = ["image/jpeg", "image/png", "image/svg+xml"];
+    if (fileUploaded.size > 1024 * 1024) {
+      toast.error("File size must be less than 1MB");
+      event.target.value = "";
+    } else if (!acceptedFileTypes.includes(fileUploaded.type)) {
+      toast.error("File type must be in jpeg, png or svg");
+      event.target.value = "";
+    } else {
+      // handle file upload
+      setimageUpload(fileUploaded);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     addProductItem(addFormData);
     // console.log(addFormData);
+
     setaddFormData(defaultProductData);
-    alert("successfuly add");
+    setimageUpload("");
+    toast.success("successfuly add");
   };
 
   return (

@@ -14,7 +14,7 @@ const DesignSection = () => {
             <br />
             Have in mind
           </h1>
-          <p className="mt-2 text-gray-400">
+          <p className="mt-4 text-xl text-gray-500">
             With 3D design feature integrated in our website you can design
             <br /> what you have in mind by simply uploading your designs.
           </p>

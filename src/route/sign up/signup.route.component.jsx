@@ -16,7 +16,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className=" max-w-3xl p-4 py-8 bg-lightDark mx-auto mt-20 shadow-lg">
+    <div className=" p-4 py-8 bg-lightDark mx-auto mt-20 shadow-lg">
       <SignUpForm />
 
       {/* <button

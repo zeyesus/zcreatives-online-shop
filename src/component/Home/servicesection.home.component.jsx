@@ -18,7 +18,7 @@ const Services = () => {
             <MdHighQuality className="text-6xl text-brightYellow" />
 
             <h2 className="heading2 mt-3">Quality print</h2>
-            <p className="text-secondaryDark">
+            <p className="mt-4 text-xl text-gray-500">
               With our latest machines we provide you a high quality print
             </p>
           </div>

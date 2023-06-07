@@ -9,17 +9,25 @@ import FormInput from "./formInput.component";
 import { GirlWithBgShape } from "../../assets";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
 const defaultFormFields = {
   displayName: "",
   email: "",
   password: "",
   confirmpassword: "",
 };
+const roles = {
+  user: "user",
+  admin: "admin",
+  printworker: "printworker",
+  designer: "designer",
+};
 const SignUpForm = () => {
   // const { setcurrentuser } = useContext(UserContext); ////context////
   const navigate = useNavigate();
   const [formFields, setformFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmpassword } = formFields;
+  const [role, setRole] = useState("user");
   const location = useLocation();
   console.log(formFields);
 
@@ -57,11 +65,14 @@ const SignUpForm = () => {
 
       //////////Context for email and password login///////////////
       // setcurrentuser(user);
-      ///////////////LOG////////////
-      console.log(user);
 
-      await createUserDocumentFromAuth(user, { displayName });
+      const userwithrole = await createUserDocumentFromAuth(user, {
+        displayName,
+        role,
+      });
+      console.log(userwithrole, "///////user with role");
       toast.success("Account created successfuly");
+      navigate("/");
       // location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
       reserFormfields();
     } catch (error) {
@@ -84,20 +95,20 @@ const SignUpForm = () => {
   };
 
   return (
-    <Fragment>
-      <div className="md:flex gap-8">
-        <div className="bg-black hidden md:block text-center w-2/4">
-          <img src={GirlWithBgShape} className="h-3/4 mx-auto" />
+    <div className="w-[1300px] mx-auto rounded-lg overflow-hidden shadow-xl shadow-gray-400">
+      <div className="md:flex gap-8 ">
+        <div className="bg-black hidden pb-4 w-3/5 md:block text-center ">
+          <img src={GirlWithBgShape} className=" mx-auto" />
           <h2 className="text-white font-semibold  text-4xl">
             Create an account
           </h2>
         </div>
         <form
           onSubmit={handleSubmit}
-          className="relative flex flex-col md:w-2/4 "
+          className="relative flex flex-col justify-center w-2/5 pr-10 "
         >
-          <img src={girl} alt="" className=" absolute -top-20 left-24 h-28" />
-
+          <img src={girl} alt="" className=" absolute -top-0 left-44 h-28" />
+          <h1 className="heading2 font-bold text-center">Sign Up</h1>
           <FormInput
             label="Display Name"
             name="displayName"
@@ -124,6 +135,8 @@ const SignUpForm = () => {
             value={password}
             type="text"
             placeholder="password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, one special character and at least 8 or more characters"
             required
             onChange={changeHandler}
           />
@@ -134,6 +147,8 @@ const SignUpForm = () => {
             value={confirmpassword}
             type="text"
             placeholder="confirm password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+            title="Must contain at least one number and one uppercase and lowercase letter, one special character and at least 8 or more characters"
             required
             onChange={changeHandler}
           />
@@ -144,16 +159,17 @@ const SignUpForm = () => {
           >
             Sign Up
           </button>
+
           <button
             type="button"
-            className="btn-outline-large btn-hover ml-5 mt-3 "
+            className="btn-outline-large btn-outline-hover w-2/3 mx-auto btn-hover mt-3 flex items-center justify-around"
             onClick={logGoogleUser}
           >
-            Sign up with google
+            <span>Sign up with google</span> <FcGoogle size={25} />
           </button>
         </form>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

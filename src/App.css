@@ -6,7 +6,7 @@
 
 /* /////////Heading/////////////// */
 .heading1 {
-  @apply text-4xl font-medium;
+  @apply text-2xl font-bold tracking-tight text-gray-900 sm:text-6xl;
 }
 .heading2 {
   @apply text-2xl font-normal;
@@ -31,11 +31,11 @@
 }
 
 .btn-outline-hover {
-  @apply hover:bg-brightYellow hover:border-white hover:text-secondaryDark hover:-translate-y-0.5 transition-all;
+  @apply hover:bg-black  hover:text-white hover:-translate-y-0.5 transition-all;
 }
 
 .btn_hover {
-  @apply hover:bg-brightYellow hover:-translate-y-0.5 transition-all hover:text-secondaryDark;
+  @apply hover:bg-brightYellow hover:-translate-y-0.5 transition-all hover:text-gray-900;
 }
 
 /* //////////CARD///////////// */

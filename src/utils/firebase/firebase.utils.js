@@ -20,6 +20,7 @@ import {
   collection,
   serverTimestamp,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import {
   getStorage,
@@ -27,8 +28,9 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { UserContext } from "../../component/context/user.context";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB_2nuRs97aAv3IWbTnsp3spJwi5auJxXM",
@@ -59,7 +61,7 @@ export const createUserDocumentFromAuth = async (
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
 
-  console.log(userDocRef);
+  console.log(userDocRef, "//////////////from createUserDocumentFromAuth func");
 
   const userSnapshot = await getDoc(userDocRef);
   console.log(userSnapshot);
@@ -97,10 +99,24 @@ export const signInUserWithEmailAndPassword = async (email, password) => {
 
 export const signOutUser = async () => {
   await signOut(auth);
+  //setUserRole(null);
   toast.success("Successfuly logged out");
 };
 export const onAuthStateChangeListiner = (callback) =>
   onAuthStateChanged(auth, callback);
+
+/////////////////////Get single item from db/////////////////////
+export const getSingleItem = async (collectionname, itemId) => {
+  let itemtobereturned = {};
+  const itemselected = await getDoc(doc(db, collectionname, itemId));
+  if (itemselected.exists()) {
+    const itemdata = itemselected.data();
+
+    itemtobereturned = itemdata;
+  }
+  //console.log("Document data:", itemtobereturned);
+  return itemtobereturned.role;
+};
 
 ////////////////////Delete UserAcount//////////////////
 export const deleteUserFromAuth = async () => {
@@ -186,4 +202,27 @@ export const UpdateItem = async (itemId, collectionName, updatedata) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const UpdateEntry = async (productId, collectonName) => {
+  try {
+    // doc(db, collectonName, productId).update({
+    //   pending: true,
+    // });
+    const washingtonRef = doc(db, collectonName, productId);
+
+    await updateDoc(washingtonRef, {
+      pending: true,
+    });
+    console.log("updated successfully");
+  } catch (error) {
+    console.error("name is", error);
+  }
+};
+
+//////////////Nubmer of entires in our collection////////////////
+
+export const getCollectionSize = async (collectionName) => {
+  const querySnapshot = await getDocs(collection(db, collectionName));
+  return querySnapshot.size;
 };

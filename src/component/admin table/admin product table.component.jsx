@@ -26,6 +26,9 @@ const AdminProductsTable = () => {
   return (
     <Fragment>
       <div className="w-3/4 mx-auto h-screen">
+        <div className=" ">
+          <h1 className="heading2 font-semibold">Products Tabel</h1>
+        </div>
         {loading ? (
           <h1 className="text-center text-brightYellow text-2xl mt-7">
             Loading....

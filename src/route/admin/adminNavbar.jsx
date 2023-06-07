@@ -1,13 +1,16 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import AddProductForm from "../../component/admin-form/add-product.component";
 import { RiAdminFill } from "react-icons/ri";
 import { AiFillDashboard } from "react-icons/ai";
 import Dropdown from "../../component/dropdown option/dropdownOptions.nav";
+import { UserContext } from "../../component/context/user.context";
 const AdminNav = () => {
+  const { roles, setUserRole } = useContext(UserContext);
   const handleSignOut = async () => {
     await signOutUser();
+    //setUserRole(null);
   };
   return (
     // <Fragment>
@@ -29,10 +32,24 @@ const AdminNav = () => {
           </div>
           <div>
             <div className="hidden md:flex space-x-5">
-              <Link to="/dashboard">Admin Home</Link>
-              <Link to="/dashboard/adminorderpage">Orders</Link>
-              <Link to="/dashboard/adminusers">Users</Link>
-              <Link to="/dashboard/adminproduct">Product</Link>
+              {roles == "admin" ? (
+                <Fragment>
+                  <Link to="/dashboard">Admin Home</Link>
+                  <Link to="/dashboard/adminorderpage">Orders</Link>
+                  <Link to="/dashboard/adminusers">Users</Link>
+                  <Link to="/dashboard/adminproduct">Product</Link>
+                </Fragment>
+              ) : roles == "printworker" ? (
+                <>
+                  <Link to="/printworker">Admin Home</Link>
+                  <Link to="/printworker/adminorderpage">Orders</Link>
+                </>
+              ) : roles == "designer" ? (
+                <>
+                  <Link to="/designer">Admin Home</Link>
+                  <Link to="/designer/adminproduct">Product</Link>
+                </>
+              ) : null}
             </div>
           </div>
           <div className=" flex space-x-4">

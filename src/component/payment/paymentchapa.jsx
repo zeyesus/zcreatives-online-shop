@@ -51,7 +51,8 @@ const ChapPayment = ({ fname, lname, amount, email }) => {
         />
         <button
           type="submit"
-          className="btn-large btn_hover bg-green-600 mt-10 w-2/3 mx-auto"
+          className="btn-large btn_hover bg-green-600 mt-10 disabled:bg-gray-500"
+          disabled={currentuser == null || cartTotal == 0}
         >
           Pay Now With chapa
         </button>

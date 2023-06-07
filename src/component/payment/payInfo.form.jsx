@@ -86,7 +86,7 @@ const PaymentForm = () => {
             setamount(e.target.value);
           }}
         />
-        <button className="bg-red-400 p-4">Pay now</button>
+        <button className="btn btn_hover my-2 py-2">Pay now</button>
       </form>
     </div>
   );

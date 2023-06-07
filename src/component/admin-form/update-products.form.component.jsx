@@ -111,11 +111,21 @@ const UpdateProductForm = ({ closePopup, currentupdatedProduct }) => {
   };
   const handleFileUpload = (event) => {
     const fileUploaded = event.target.files[0];
-    setimageUpload(fileUploaded);
+    const acceptedFileTypes = ["image/jpeg", "image/png", "image/svg+xml"];
+    if (!acceptedFileTypes.includes(fileUploaded.type)) {
+      toast.error("File type must be in jpeg, png or svg");
+      event.target.value = "";
+    } else if (fileUploaded.size > 1024 * 1024) {
+      toast.error("File size must be less than 1MB");
+      event.target.value = "";
+    } else {
+      // handle file upload
+      setimageUpload(fileUploaded);
+    }
   };
   return (
     <Fragment>
-      <div className="absolute top-0 left-1 w-full bg-gray-300 bg-opacity-75">
+      <div className="absolute top-0 left-1 w-full h-screen bg-gray-300 bg-opacity-75">
         <form
           onSubmit={handleSubmit}
           className="max-w-lg bg-gray-100 mb-8 shadow-lg px-6 py-2 mx-auto mt-5 rounded-lg "
@@ -186,7 +196,7 @@ const UpdateProductForm = ({ closePopup, currentupdatedProduct }) => {
               name="productImage"
               onChange={handleFileUpload}
               type="file"
-              placeholder="confirm password"
+              placeholder="Upload Image "
               // required
               className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
             />

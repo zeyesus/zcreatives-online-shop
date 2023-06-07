@@ -8,6 +8,7 @@ import { addOrder } from "../../utils/firebase/firebase.utils";
 import PaymentForm from "../../component/payment/payInfo.form";
 import ChapPayment from "../../component/payment/paymentchapa";
 import ProtectedUserRoute from "../protected route/protectedRoute.route";
+import { toast } from "react-toastify";
 const CartRoute = () => {
   const { cartItems, cartTotal, setcartItems } = useContext(CartContext);
   const { currentuser } = useContext(UserContext);
@@ -26,7 +27,12 @@ const CartRoute = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const order = { order: cartItems, user: chekoutformdata };
+    const createdAt = new Date();
+    const order = {
+      order: cartItems,
+      user: chekoutformdata,
+      pending: false,
+    };
     const { fname, lname, email } = chekoutformdata;
     ///////////////////////JS METHOD //////////////////
     // var myHeaders = new Headers();
@@ -65,7 +71,7 @@ const CartRoute = () => {
 
     try {
       await addOrder(order);
-      alert("order have been placed successfuly");
+      toast.success("order have been placed successfuly");
       setchekoutformdata(defaultFormData);
       setcartItems([]);
       console.log("succetssfuly inserted", order);
@@ -154,14 +160,23 @@ const CartRoute = () => {
               required
               onChange={handleChange}
             />
-            {/* <button className="btn-large mt-4">Check Out</button> */}
-            <ChapPayment
-              onClick={handleSubmit}
-              fname={fname}
-              lname={lname}
-              email={email}
-            />
+            <div className="flex gap-6 items-baseline ">
+              <button
+                className="btn-large btn_hover disabled:bg-gray-500 "
+                disabled={currentuser == null || cartTotal == 0}
+              >
+                Check Out
+              </button>
+              <ChapPayment
+                onClick={handleSubmit}
+                fname={fname}
+                lname={lname}
+                email={email}
+              />
+            </div>
           </form>{" "}
+          {/* <PaymentForm /> */}
+          {/* ///////////////////////////////////////// */}
           {/* ////////////////chapa payment///////////////////// */}
           {/* {currentuser ? (
             <ChapPayment fname={fname} lname={lname} email={email} />
@@ -173,8 +188,6 @@ const CartRoute = () => {
               Pay Now
             </Link>
           )} */}
-          {/* ///////////////////////////////////////// */}
-          <PaymentForm />
           {/* <button
             className="p-2 bg-brightYellow"
             onClick={() => {

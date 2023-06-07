@@ -20,13 +20,12 @@ import Footer from "../../component/footer/footer.component";
 import Dropdown from "../../component/dropdown option/dropdownOptions.nav";
 
 const Navbar = () => {
-  const { currentuser } = useContext(UserContext);
+  const { currentuser, roles, setUserRole } = useContext(UserContext);
   const [tooglenavbar, settoglenavbar] = useState(false);
-
-  console.log(currentuser, "//////////from nav "); ///log current user///
 
   const handleLogOut = async () => {
     await signOutUser();
+    //setUserRole(null);
     // console.log(currentuser);
     console.log("successfuly loged out");
   };
@@ -100,12 +99,12 @@ const Navbar = () => {
                 </div>
               ) : (
                 <Fragment>
-                  {/* <Link to="/signin">
+                  <Link to="/signin">
                     <button className="hidden md:inline-block  btn  btn_hover">
                       Sign in
                     </button>
-                  </Link> */}
-                  <Dropdown dropDownName={"Sign In"}>
+                  </Link>
+                  {/* <Dropdown dropDownName={"Sign In"}>
                     <Link
                       to="/signin"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -121,7 +120,7 @@ const Navbar = () => {
                     >
                       Sign in as Admin
                     </Link>
-                  </Dropdown>
+                  </Dropdown> */}
                   <Link to="/signup">
                     <button className="hidden md:inline-block  btn btn_hover">
                       Sign up
