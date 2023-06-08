@@ -4,6 +4,7 @@ import {
   createUserDocumentFromAuth,
   signInWithGooglePopup,
 } from "../../utils/firebase/firebase.utils";
+import { sendEmailVerification } from "firebase/auth";
 import girl from "../../assets/girlwithbgshape.png";
 import FormInput from "./formInput.component";
 import { GirlWithBgShape } from "../../assets";
@@ -62,9 +63,16 @@ const SignUpForm = () => {
         email,
         password
       );
+      // await user.sendEmailVerification();
 
-      //////////Context for email and password login///////////////
-      // setcurrentuser(user);
+      // toast.success(
+      //   "A verification email has been sent to your email address. Please verify your email before signing in."
+      // );
+      //////////////email verification checheker////////////
+      // if (!user.emailVerified) {
+      //   toast.error("The email you enterd is not verified");
+      //   return;
+      // }
 
       const userwithrole = await createUserDocumentFromAuth(user, {
         displayName,
@@ -87,8 +95,13 @@ const SignUpForm = () => {
   };
 
   const logGoogleUser = async () => {
-    await signInWithGooglePopup();
-    location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
+    const { user } = await signInWithGooglePopup();
+    const userwithrole = await createUserDocumentFromAuth(user, {
+      displayName: user.displayName,
+      role,
+    });
+
+    navigate("/");
     //console.log(response);
     // const { user } = response;
     // const userDocRef = await createUserDocumentFromAuth(user);

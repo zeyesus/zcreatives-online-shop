@@ -212,7 +212,7 @@ export const UpdateEntry = async (productId, collectonName) => {
     const washingtonRef = doc(db, collectonName, productId);
 
     await updateDoc(washingtonRef, {
-      pending: true,
+      pending: false,
     });
     console.log("updated successfully");
   } catch (error) {
@@ -225,7 +225,7 @@ export const UpdateDisapprovalEntry = async (productId, collectonName) => {
     const washingtonRef = doc(db, collectonName, productId);
 
     await updateDoc(washingtonRef, {
-      pending: false,
+      pending: true,
     });
     console.log("updated successfully");
   } catch (error) {

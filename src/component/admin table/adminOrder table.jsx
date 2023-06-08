@@ -36,11 +36,12 @@ const AdminOrderTabel = () => {
       const updatedOrders = orders.map((order) => {
         if (order.id === productId) {
           // Update the pending status of the order
-          return { ...order, pending: true };
+          return { ...order, pending: false };
         }
         return order;
       });
       setDisplayedOrders(updatedOrders);
+      setOrders(updatedOrders);
     } catch (error) {
       console.error("error in updating", error);
     }
@@ -52,11 +53,12 @@ const AdminOrderTabel = () => {
       const updatedOrders = orders.map((order) => {
         if (order.id === productId) {
           // Update the pending status of the order
-          return { ...order, pending: false };
+          return { ...order, pending: true };
         }
         return order;
       });
       setDisplayedOrders(updatedOrders);
+      setOrders(updatedOrders);
     } catch (error) {
       console.error("error in updating", error);
     }
@@ -219,7 +221,7 @@ const AdminOrderTabel = () => {
 
                     <td>{orderItem.id}</td>
                     <td className="text-white">
-                      {orderItem.pending ? (
+                      {!orderItem.pending ? (
                         <span className="bg-gray-300 text-gray-600 p-2 rounded-xl">
                           order has been done
                         </span>
@@ -246,7 +248,7 @@ const AdminOrderTabel = () => {
                       ) : null}
                     </td>
                     <td>
-                      {orderItem.pending ? (
+                      {!orderItem.pending ? (
                         <span className="bg-green-500 p-2 px-4 font-semibold text-lg rounded-xl text-white">
                           Done
                         </span>
@@ -257,7 +259,7 @@ const AdminOrderTabel = () => {
                       )}
                     </td>
                     <td className=" ">
-                      {!orderItem.pending ? (
+                      {orderItem.pending ? (
                         <button
                           className="btn bg-green-500 text-white py-2  font-semibold text-lg disabled:bg-gray-300 disabled:text-gray-400"
                           onClick={() => handleApprove(orderItem.id, "orders")}

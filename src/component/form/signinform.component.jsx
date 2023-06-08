@@ -28,14 +28,19 @@ const SignInForm = () => {
   const location = useLocation();
   const [formfield, setFormField] = useState(defaultForm);
   const { email, password } = formfield;
+  const [role, setRole] = useState("user");
   const navigate = useNavigate();
 
   const signInWithGoogle = async () => {
-    const response = await signInWithGooglePopup();
-    location.pathname.startsWith("/cart") ? navigate("/cart") : navigate("/");
-    ///////context/////
-    // setcurrentuser(response);
-    console.log(response, "////////from signinwithgoogle from sign in route");
+    const { user } = await signInWithGooglePopup();
+    const userwithrole = await createUserDocumentFromAuth(user, {
+      displayName: user.displayName,
+      role,
+    });
+
+    navigate("/");
+
+    console.log(user, "////////from signinwithgoogle from sign in route");
     // const { user } = response;
     // const userDocRef = await createUserDocumentFromAuth(user);
     //console.log(userDocRef);
@@ -61,7 +66,14 @@ const SignInForm = () => {
         email,
         password
       );
+
       const user = userCredential.user;
+      // /////////////////////////////////////////////
+      // if (!user.emailVerified) {
+      //   toast.error("The email you enterd is not verified");
+      //   return;
+      // }
+      ////////////////////////////////////
       const rolee = await getSingleItem("users", user.uid);
 
       setUserRole(rolee);
