@@ -13,7 +13,7 @@ const HomeRoute = () => {
       <HeroSection />
       <Services />
       <DesignSection />
-      <PromoSection />
+      {/* <PromoSection /> */}
       <ShopSection />
     </Fragment>
   );

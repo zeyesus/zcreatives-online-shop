@@ -86,6 +86,8 @@ const AddUserForm = () => {
           onChange={handleChange}
           type="password"
           placeholder="password"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+          title="Must contain at least one number and one uppercase and lowercase letter, one special character and at least 8 or more characters"
           required
           className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
         />
@@ -96,6 +98,8 @@ const AddUserForm = () => {
           onChange={handleChange}
           type="password"
           placeholder="confirm password"
+          pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
+          title="Must contain at least one number and one uppercase and lowercase letter, one special character and at least 8 or more characters"
           required
           className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
         />

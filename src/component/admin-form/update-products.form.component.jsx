@@ -190,8 +190,19 @@ const UpdateProductForm = ({ closePopup, currentupdatedProduct }) => {
               </select>
             </div>
           </div>
-          <div className="flex items-center">
-            <FormInput
+          <div className="flex items-center justify-between">
+            <label className="w-32 inline-flex items-center px-4 py-3 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+              Upload File
+              <input
+                label="Product Image"
+                name="productImage"
+                onChange={handleFileUpload}
+                type="file"
+                placeholder="Upload Image "
+                className="sr-only"
+              />
+            </label>
+            {/* <FormInput
               label="Product Image"
               name="productImage"
               onChange={handleFileUpload}
@@ -199,7 +210,7 @@ const UpdateProductForm = ({ closePopup, currentupdatedProduct }) => {
               placeholder="Upload Image "
               // required
               className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
-            />
+            /> */}
             <img src={productImage} className="h-16" />
           </div>
           <button

@@ -220,6 +220,19 @@ export const UpdateEntry = async (productId, collectonName) => {
   }
 };
 
+export const UpdateDisapprovalEntry = async (productId, collectonName) => {
+  try {
+    const washingtonRef = doc(db, collectonName, productId);
+
+    await updateDoc(washingtonRef, {
+      pending: false,
+    });
+    console.log("updated successfully");
+  } catch (error) {
+    console.error("name is", error);
+  }
+};
+
 //////////////Nubmer of entires in our collection////////////////
 
 export const getCollectionSize = async (collectionName) => {

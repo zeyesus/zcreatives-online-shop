@@ -7,7 +7,7 @@ import { UserContext } from "../../component/context/user.context";
 const AdminProducts = () => {
   const { roles } = useContext(UserContext);
   return (
-    <div className="grid sm:grid-cols-5  ">
+    <div className="grid sm:grid-cols-6 h-screen">
       <div className="bg-slate-600 flex flex-col bg-white ">
         {roles == "admin" ? (
           <>

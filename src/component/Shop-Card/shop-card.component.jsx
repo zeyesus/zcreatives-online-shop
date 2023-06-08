@@ -41,7 +41,10 @@ const ShopCard = ({ product, popup, setpopup, setPopupProducts }) => {
 
         <button
           className="btn-large btn-outline-hover"
-          onClick={addProductToCart}
+          onClick={() => {
+            setpopup(!popup);
+            setPopupProducts(product);
+          }}
         >
           Add to cart
         </button>

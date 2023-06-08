@@ -26,10 +26,9 @@ const Footer = () => {
         </div>
         <div className="w-80">
           <p className="text-lightDark mt-10 md:mt-0 ">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis
-            aperiam excepturi minima sapiente, quidem perspiciatis totam.
-            Expedita, incidunt inventore nisi voluptate alias earum non quam
-            quas dolorem ex? Quia, nulla.
+            Z- creatives is an emerging company formulated back in 2013. The
+            company has been provideing its customers with t-shirt related
+            products. Now it comes with new platform enjoy.
           </p>
         </div>
       </div>

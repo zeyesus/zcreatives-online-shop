@@ -17,7 +17,7 @@ const OrderRoute = () => {
 
   return (
     <Fragment>
-      <div className="grid grid-cols-6 h-screen">
+      <div className="grid grid-cols-6 h-auto">
         <div className="bg-white ">
           <FilterOrder
             sideNavShow={sideNavShow}

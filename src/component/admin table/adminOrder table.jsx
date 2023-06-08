@@ -2,22 +2,25 @@ import React, { Fragment, useContext, useEffect, useState } from "react";
 import {
   DeletItem,
   GetItems,
+  UpdateDisapprovalEntry,
   UpdateEntry,
 } from "../../utils/firebase/firebase.utils";
 import UpdateUserForm from "../admin-form/update-user.component";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { FcApproval } from "react-icons/fc";
+import { FcApproval, FcCancel } from "react-icons/fc";
 import { UserContext } from "../context/user.context";
 const AdminOrderTabel = () => {
   const [orders, setOrders] = useState([]);
   const [currentupdateduser, setcurrentupdateduser] = useState({});
   const [toogleupdateform, setupdateform] = useState(false);
+  const [displayedOrders, setDisplayedOrders] = useState([]);
   const { roles } = useContext(UserContext);
   useEffect(() => {
     const getOrders = async () => {
       const productsFromdb = await GetItems("orders");
 
       setOrders(productsFromdb);
+      setDisplayedOrders(productsFromdb);
     };
     getOrders();
   }, []);
@@ -30,13 +33,106 @@ const AdminOrderTabel = () => {
   const handleApprove = async (productId, collectonName) => {
     try {
       await UpdateEntry(productId, collectonName);
+      const updatedOrders = orders.map((order) => {
+        if (order.id === productId) {
+          // Update the pending status of the order
+          return { ...order, pending: true };
+        }
+        return order;
+      });
+      setDisplayedOrders(updatedOrders);
     } catch (error) {
       console.error("error in updating", error);
     }
     // alert("updated successfuly");
   };
+  const handleDisApprove = async (productId, collectonName) => {
+    try {
+      await UpdateDisapprovalEntry(productId, collectonName);
+      const updatedOrders = orders.map((order) => {
+        if (order.id === productId) {
+          // Update the pending status of the order
+          return { ...order, pending: false };
+        }
+        return order;
+      });
+      setDisplayedOrders(updatedOrders);
+    } catch (error) {
+      console.error("error in updating", error);
+    }
+    // alert("updated successfuly");
+  };
+  const handlefilter = (status) => {
+    const filterdOrders = orders.filter((order) => {
+      return order.pending == status;
+    });
+    setDisplayedOrders(filterdOrders);
+  };
+  const handledefault = () => {
+    setDisplayedOrders(orders);
+  };
+
+  const handlesearch = (event) => {
+    const filterdOrders = orders.filter((order) => {
+      return order.user.fname.toLowerCase().includes(event.target.value);
+    });
+    setDisplayedOrders(filterdOrders);
+  };
   return (
     <Fragment>
+      {/* /////////////////////////////////////////////////////  */}
+      <div class="mt-6 md:flex md:items-center md:justify-between max-w-[1550px] mx-auto">
+        <div class="inline-flex overflow-hidden bg-white border divide-x rounded-lg dark:bg-gray-900 rtl:flex-row-reverse dark:border-gray-700 dark:divide-gray-700">
+          <button
+            onClick={() => handledefault()}
+            class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 bg-gray-100 sm:text-sm dark:bg-gray-800 dark:text-gray-300"
+          >
+            View all
+          </button>
+
+          <button
+            onClick={() => handlefilter(true)}
+            class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+          >
+            Done
+          </button>
+
+          <button
+            onClick={() => handlefilter(false)}
+            class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
+          >
+            Pending
+          </button>
+        </div>
+
+        <div class="relative flex items-center mt-4 md:mt-0">
+          <span class="absolute">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5 mx-3 text-gray-400 dark:text-gray-600"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search with first name"
+            class="block w-full py-1.5 pr-5 text-gray-700 bg-white border border-gray-200 rounded-lg md:w-80 placeholder-gray-400/70 pl-11 rtl:pr-11 rtl:pl-5 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            onChange={handlesearch}
+          />
+        </div>
+      </div>
+      {/* 
+      /////////////////////////////////// */}
       <div className="relative">
         <div className="w-4/5 mx-auto">
           <table className="w-full text-left mt-4">
@@ -51,43 +147,13 @@ const AdminOrderTabel = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((orderItem) => {
+              {displayedOrders.map((orderItem) => {
                 //console.log(orderItem.order, "///////order item");
                 const orderDate = orderItem.timestamp.toDate().getDate();
                 const orderMonth = orderItem.timestamp.toDate().getMonth() + 1;
 
                 const currentDate = new Date().getDate();
                 const currentMonth = new Date().getMonth() + 1;
-
-                /* {
-                    if (currentMonth == orderMonth) {
-                      if (currentDate == orderDate) {
-                        return <span>{10 - (currentDate - orderDate)}</span>;
-                      } else if (
-                        currentDate - orderDate <= 10 &&
-                        currentDate - orderDate > 0
-                      ) {
-                        return (
-                          <span>
-                            {10 - (currentDate - orderDate)} days left
-                          </span>
-                        );
-                      } else if (currentDate - orderDate > 10) {
-                        return (
-                          <span>
-                            Order has passed {currentDate - orderDate - 10}...
-                          </span>
-                        );
-                      }
-                    } else if (currentMonth > orderMonth) {
-                      return (
-                        <span>
-                          order has been Placed {currentMonth - orderMonth}{" "}
-                          Month ago
-                        </span>
-                      );
-                    }
-                  } */
 
                 return (
                   <tr key={orderItem.id} className="border-b-2 border-gray-400">
@@ -191,18 +257,31 @@ const AdminOrderTabel = () => {
                       )}
                     </td>
                     <td className=" ">
-                      <button
-                        className="btn bg-green-500 text-white py-2  font-semibold text-lg disabled:bg-gray-300 disabled:text-gray-400"
-                        onClick={() => handleApprove(orderItem.id, "orders")}
-                        disabled={
-                          orderItem.pending == true || roles === "admin"
-                        }
-                      >
-                        <span className="flex items-center gap-2 ">
-                          {orderItem.pending ? "Approved" : "Approve"}{" "}
-                          <FcApproval size={25} color="white" />
-                        </span>
-                      </button>
+                      {!orderItem.pending ? (
+                        <button
+                          className="btn bg-green-500 text-white py-2  font-semibold text-lg disabled:bg-gray-300 disabled:text-gray-400"
+                          onClick={() => handleApprove(orderItem.id, "orders")}
+                          disabled={roles === "admin"}
+                        >
+                          <span className="flex items-center gap-2 ">
+                            Approve
+                            <FcApproval size={25} color="white" />
+                          </span>
+                        </button>
+                      ) : (
+                        <button
+                          className="btn bg-red-500 text-white py-2  font-semibold text-lg disabled:bg-gray-300 disabled:text-gray-400"
+                          onClick={() =>
+                            handleDisApprove(orderItem.id, "orders")
+                          }
+                          disabled={roles === "admin"}
+                        >
+                          <span className="flex items-center gap-2 ">
+                            Disapprove
+                            <FcCancel size={25} color="white" />
+                          </span>
+                        </button>
+                      )}
                       <button
                         className="btn py-2 ml-2 text-red-500 bg-black font-semibold text-lg"
                         onClick={() => hanldeClick(orderItem.id, "orders")}

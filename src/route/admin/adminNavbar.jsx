@@ -41,12 +41,12 @@ const AdminNav = () => {
                 </Fragment>
               ) : roles == "printworker" ? (
                 <>
-                  <Link to="/printworker">Admin Home</Link>
+                  <Link to="/printworker">Printworker Home</Link>
                   <Link to="/printworker/adminorderpage">Orders</Link>
                 </>
               ) : roles == "designer" ? (
                 <>
-                  <Link to="/designer">Admin Home</Link>
+                  <Link to="/designer">Designer Home</Link>
                   <Link to="/designer/adminproduct">Product</Link>
                 </>
               ) : null}
@@ -61,7 +61,7 @@ const AdminNav = () => {
               </span> */}
 
             <Fragment>
-              <Dropdown dropDownName={"Admin account"}>
+              <Dropdown dropDownName={`${roles} Account`}>
                 <button
                   onClick={handleSignOut}
                   className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"

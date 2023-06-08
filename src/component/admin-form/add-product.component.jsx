@@ -180,8 +180,19 @@ const AddProductForm = () => {
             </select>
           </div>
         </div>
-        <div className="flex flex-col mt-2">
-          <FormInput
+        <div className="flex flex-col mt-4">
+          <label className="w-32 inline-flex items-center px-4 py-3 bg-gray-900 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-800 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+            Upload File
+            <input
+              label="Product Image"
+              name="productImage"
+              onChange={handleFileUpload}
+              type="file"
+              placeholder="Product Image"
+              className="sr-only"
+            />
+          </label>
+          {/* <input
             label="Product Image"
             name="productImage"
             onChange={handleFileUpload}
@@ -189,7 +200,7 @@ const AddProductForm = () => {
             placeholder="Product Image"
             // required
             className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
-          />
+          /> */}
         </div>
         <button
           disabled={uploadProgress !== null && uploadProgress < 100}
