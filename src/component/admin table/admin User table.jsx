@@ -108,7 +108,7 @@ const AdminUsersTable = () => {
             </div>
           </div>
           {/* ////////////////////////////////////////// */}
-          <table className="w-full text-left mt-4">
+          <table className="w-full text-left mt-4 rounded-lg overflow-hidden shadow-lg shadow-gray-300">
             <thead className="bg-brightYellow ">
               <tr>
                 <th className="p-2 font-bold">User name</th>
@@ -120,7 +120,10 @@ const AdminUsersTable = () => {
             <tbody>
               {filteingusers.map((user) => {
                 return (
-                  <tr className="border-b-2 border-gray-200" key={user.id}>
+                  <tr
+                    key={user.id}
+                    className="border-b-2 border-gray-200 hover:bg-gray-200"
+                  >
                     <td className="p-2 ">{user.displayName}</td>
                     <td className="p-2 ">{user.email}</td>
                     <td className="p-2 ">{user.role}</td>

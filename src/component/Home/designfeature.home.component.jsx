@@ -9,7 +9,7 @@ const DesignSection = () => {
     <section className="bg-primaryDark mt-14 h-[410px]">
       <div className="flex justify-evenly items-center  h-80 container mx-auto">
         <div className="ml-14 mt-3">
-          <h1 className="heading1 text-white">
+          <h1 className="heading1 text-white pt-16">
             Design What You
             <br />
             Have in mind

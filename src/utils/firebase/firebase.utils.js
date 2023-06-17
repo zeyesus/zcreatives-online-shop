@@ -239,3 +239,7 @@ export const getCollectionSize = async (collectionName) => {
   const querySnapshot = await getDocs(collection(db, collectionName));
   return querySnapshot.size;
 };
+
+/////////////Send approval email////////////////
+
+export const sendApprovalEmail = async () => {};

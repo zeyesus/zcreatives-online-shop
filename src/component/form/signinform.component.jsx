@@ -130,7 +130,7 @@ const SignInForm = () => {
             label="Email"
             name="email"
             value={email}
-            type="text"
+            type="email"
             placeholder="email"
             required
             className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"
@@ -140,7 +140,7 @@ const SignInForm = () => {
             label="Password"
             name="password"
             value={password}
-            type="text"
+            type="password"
             placeholder="password"
             required
             className="h-10 rounded-lg border-none focus:ring-2 focus:ring-yellow"

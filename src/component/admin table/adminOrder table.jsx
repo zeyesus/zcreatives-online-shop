@@ -9,6 +9,8 @@ import UpdateUserForm from "../admin-form/update-user.component";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FcApproval, FcCancel } from "react-icons/fc";
 import { UserContext } from "../context/user.context";
+import { toast } from "react-toastify";
+import sendEmail from "../../utils/firebase/emailsender";
 const AdminOrderTabel = () => {
   const [orders, setOrders] = useState([]);
   const [currentupdateduser, setcurrentupdateduser] = useState({});
@@ -27,12 +29,16 @@ const AdminOrderTabel = () => {
 
   const hanldeClick = async (productId, collectionName) => {
     await DeletItem(productId, collectionName);
-    setOrders(orders.filter((item) => item.id !== productId));
+    const filterdeleted = orders.filter((item) => item.id !== productId);
+    setOrders(filterdeleted);
+    setDisplayedOrders(filterdeleted);
+    toast.success("deleted successfully");
   };
 
-  const handleApprove = async (productId, collectonName) => {
+  const handleApprove = async (productId, collectonName, userEmail) => {
     try {
       await UpdateEntry(productId, collectonName);
+      await sendEmail(userEmail);
       const updatedOrders = orders.map((order) => {
         if (order.id === productId) {
           // Update the pending status of the order
@@ -93,14 +99,14 @@ const AdminOrderTabel = () => {
           </button>
 
           <button
-            onClick={() => handlefilter(true)}
+            onClick={() => handlefilter(false)}
             class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
           >
             Done
           </button>
 
           <button
-            onClick={() => handlefilter(false)}
+            onClick={() => handlefilter(true)}
             class="px-5 py-2 text-xs font-medium text-gray-600 transition-colors duration-200 sm:text-sm dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100"
           >
             Pending
@@ -136,8 +142,8 @@ const AdminOrderTabel = () => {
       {/* 
       /////////////////////////////////// */}
       <div className="relative">
-        <div className="w-4/5 mx-auto">
-          <table className="w-full text-left mt-4">
+        <div className="w-4/5 mx-auto ">
+          <table className="w-full text-left mt-4 shadow-xl shadow-gray-400 rounded-lg overflow-hidden">
             <thead className="bg-brightYellow ">
               <tr>
                 <th className="p-2 font-bold ">Product Imagee</th>
@@ -158,7 +164,10 @@ const AdminOrderTabel = () => {
                 const currentMonth = new Date().getMonth() + 1;
 
                 return (
-                  <tr key={orderItem.id} className="border-b-2 border-gray-400">
+                  <tr
+                    key={orderItem.id}
+                    className="border-b-2 border-gray-400 hover:bg-gray-200"
+                  >
                     <td>
                       {orderItem.order.map((item) => {
                         return (
@@ -213,7 +222,7 @@ const AdminOrderTabel = () => {
                         <p>
                           Transaction ID:
                           <span className="text-gray-900 font-bold">
-                            {orderItem.user.tid}
+                            {orderItem.user.email}
                           </span>
                         </p>
                       </div>
@@ -263,7 +272,7 @@ const AdminOrderTabel = () => {
                         <button
                           className="btn bg-green-500 text-white py-2  font-semibold text-lg disabled:bg-gray-300 disabled:text-gray-400"
                           onClick={() => handleApprove(orderItem.id, "orders")}
-                          disabled={roles === "admin"}
+                          //disabled={roles === "admin"}
                         >
                           <span className="flex items-center gap-2 ">
                             Approve
@@ -274,9 +283,13 @@ const AdminOrderTabel = () => {
                         <button
                           className="btn bg-red-500 text-white py-2  font-semibold text-lg disabled:bg-gray-300 disabled:text-gray-400"
                           onClick={() =>
-                            handleDisApprove(orderItem.id, "orders")
+                            handleDisApprove(
+                              orderItem.id,
+                              "orders",
+                              orderItem.user.email
+                            )
                           }
-                          disabled={roles === "admin"}
+                          //disabled={roles === "admin"}
                         >
                           <span className="flex items-center gap-2 ">
                             Disapprove

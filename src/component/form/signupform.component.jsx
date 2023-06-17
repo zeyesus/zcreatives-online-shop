@@ -146,7 +146,7 @@ const SignUpForm = () => {
             label="Password"
             name="password"
             value={password}
-            type="text"
+            type="password"
             placeholder="password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, one special character and at least 8 or more characters"
@@ -158,7 +158,7 @@ const SignUpForm = () => {
             label="Confirm password"
             name="confirmpassword"
             value={confirmpassword}
-            type="text"
+            type="password"
             placeholder="confirm password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"
             title="Must contain at least one number and one uppercase and lowercase letter, one special character and at least 8 or more characters"

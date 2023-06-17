@@ -31,7 +31,7 @@ const CartRoute = () => {
     const order = {
       order: cartItems,
       user: chekoutformdata,
-      pending: false,
+      pending: true,
     };
     const { fname, lname, email } = chekoutformdata;
     ///////////////////////JS METHOD //////////////////

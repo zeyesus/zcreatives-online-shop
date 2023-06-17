@@ -72,7 +72,7 @@ const AdminProductsTable = () => {
     <Fragment>
       <div className="w-11/12 mx-auto h-screen">
         <div className=" ">
-          <h1 className="heading2 font-semibold">Products Tabel</h1>
+          <h1 className="heading2 font-semibold">Products Table</h1>
         </div>
         {/* //////////////////////// */}
         <div class="mt-6 md:flex md:items-center md:justify-between max-w-[1550px] mx-auto">
@@ -164,7 +164,7 @@ const AdminProductsTable = () => {
             Loading....
           </h1>
         ) : (
-          <table className="w-full text-left mt-4">
+          <table className="w-full text-left mt-4 rounded-lg overflow-hidden shadow-lg shadow-gray-300">
             <thead className="bg-brightYellow ">
               <tr>
                 <th className="p-2 font-bold"> Product image</th>
@@ -178,7 +178,10 @@ const AdminProductsTable = () => {
             <tbody className="bg-white">
               {filterproductsItems.map((product) => {
                 return (
-                  <tr className="border-b-2 border-gray-200" key={product.id}>
+                  <tr
+                    key={product.id}
+                    className="border-b-2 border-gray-200 hover:bg-gray-100"
+                  >
                     <td className="p-2 ">
                       <img src={product.productImage} className="h-10" alt="" />
                     </td>
